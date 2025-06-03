@@ -73,7 +73,7 @@ A modern, comprehensive portfolio website featuring interactive dashboards, weat
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/portfolio.git
+git clone https://github.com/kevintongg/portfolio.git
 cd portfolio
 
 # Install dependencies
@@ -239,4 +239,4 @@ MIT License - feel free to use this as a template for your own portfolio!
 
 ---
 
-Built with ❤️ by Kevin Tong | [Portfolio](/) | [Dashboard](/dashboard) | [Weather](/weather)
+Built with ❤️ by Kevin Tong | [Portfolio](/) | [Dashboard](/src/pages/Dashboard.tsx) | [Weather](/src/pages/Weather.tsx)
