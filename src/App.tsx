@@ -9,13 +9,13 @@ function App() {
   return (
     <DarkModeProvider>
       <Router>
+        <SpeedInsights />
         <Routes>
           <Route path="/" element={<Portfolio />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/weather" element={<Weather />} />
         </Routes>
       </Router>
-      <SpeedInsights />
     </DarkModeProvider>
   );
 }
