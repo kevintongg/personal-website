@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from './button';
 import { DarkModeToggle } from './dark-mode-toggle';
 
@@ -81,6 +82,13 @@ export function MobileNav() {
               >
                 Contact
               </a>
+              <Link
+                to="/dashboard"
+                className="block text-lg text-gray-700 transition-colors hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
+                onClick={() => setIsOpen(false)}
+              >
+                Dashboard
+              </Link>
               <div className="border-t border-gray-200 pt-4 dark:border-gray-700">
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-gray-600 dark:text-gray-400">Theme</span>
