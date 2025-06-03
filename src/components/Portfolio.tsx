@@ -8,7 +8,7 @@ import {
   DashboardPreview,
   ECommercePreview,
   TaskManagementPreview,
-  WeatherDashboardPreview
+  WeatherDashboardPreview,
 } from './ui/project-previews';
 import { SkillsSection } from './ui/skill-bar';
 
@@ -221,7 +221,8 @@ export function Portfolio() {
               <CardHeader>
                 <CardTitle>Personal Dashboard</CardTitle>
                 <CardDescription>
-                  A beautiful personal dashboard with weather, clock, todo list, inspirational quotes, and bookmarks. Built with React and TypeScript.
+                  A beautiful personal dashboard with weather, clock, todo list, inspirational
+                  quotes, and bookmarks. Built with React and TypeScript.
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -238,7 +239,11 @@ export function Portfolio() {
                 </div>
                 <div className="flex gap-2">
                   <Button variant="outline" size="sm" asChild>
-                    <a href="https://github.com/kevintongg/portfolio/blob/main/src/pages/Dashboard.tsx" target="_blank" rel="noopener noreferrer">
+                    <a
+                      href="https://github.com/kevintongg/portfolio/blob/main/src/pages/Dashboard.tsx"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       View Code
                     </a>
                   </Button>
@@ -323,7 +328,8 @@ export function Portfolio() {
               <CardHeader>
                 <CardTitle>Weather Dashboard</CardTitle>
                 <CardDescription>
-                  A comprehensive weather dashboard with location-based forecasts, hourly predictions, 7-day outlook, and interactive weather data visualization.
+                  A comprehensive weather dashboard with location-based forecasts, hourly
+                  predictions, 7-day outlook, and interactive weather data visualization.
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -340,7 +346,11 @@ export function Portfolio() {
                 </div>
                 <div className="flex gap-2">
                   <Button variant="outline" size="sm" asChild>
-                    <a href="https://github.com/kevintongg/portfolio/blob/main/src/pages/Weather.tsx" target="_blank" rel="noopener noreferrer">
+                    <a
+                      href="https://github.com/kevintongg/portfolio/blob/main/src/pages/Weather.tsx"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       View Code
                     </a>
                   </Button>

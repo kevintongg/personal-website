@@ -18,7 +18,7 @@ import type {
   SavedLocation,
   TemperatureUnit,
   WeatherAlert,
-  WeatherRecommendation
+  WeatherRecommendation,
 } from '../lib/weather/types';
 import { weatherService } from '../lib/weather/weatherService';
 
@@ -33,6 +33,7 @@ export function Weather() {
   const [savedLocations, setSavedLocations] = useState<SavedLocation[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const [temperatureUnit, setTemperatureUnit] = useState<TemperatureUnit>(() => {
     const saved = localStorage.getItem('weather-temp-unit');
@@ -66,11 +67,24 @@ export function Weather() {
 
   const getWeatherIcon = (iconCode: string, _description: string) => {
     const iconMap: { [key: string]: string } = {
-      '01d': '☀️', '01n': '🌙', '02d': '⛅', '02n': '☁️',
-      '03d': '☁️', '03n': '☁️', '04d': '☁️', '04n': '☁️',
-      '09d': '🌧️', '09n': '🌧️', '10d': '🌦️', '10n': '🌧️',
-      '11d': '⛈️', '11n': '⛈️', '13d': '❄️', '13n': '❄️',
-      '50d': '🌫️', '50n': '🌫️',
+      '01d': '☀️',
+      '01n': '🌙',
+      '02d': '⛅',
+      '02n': '☁️',
+      '03d': '☁️',
+      '03n': '☁️',
+      '04d': '☁️',
+      '04n': '☁️',
+      '09d': '🌧️',
+      '09n': '🌧️',
+      '10d': '🌦️',
+      '10n': '🌧️',
+      '11d': '⛈️',
+      '11n': '⛈️',
+      '13d': '❄️',
+      '13n': '❄️',
+      '50d': '🌫️',
+      '50n': '🌫️',
     };
     return iconMap[iconCode] || '🌤️';
   };
@@ -93,7 +107,6 @@ export function Weather() {
         const recs = weatherService.generateRecommendations(data.current, data.hourly);
         setRecommendations(recs);
       }
-
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to fetch weather data');
     } finally {
@@ -104,7 +117,7 @@ export function Weather() {
   const getCurrentLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
-        (position) => {
+        position => {
           const location: SavedLocation = {
             id: 'current_location',
             name: 'Current Location',
@@ -119,10 +132,10 @@ export function Weather() {
               temperatureAlerts: false,
               severeWeatherAlerts: false,
               dailySummary: false,
-              temperatureThresholds: { high: 30, low: 0 }
+              temperatureThresholds: { high: 30, low: 0 },
             },
             addedAt: Date.now(),
-            lastAccessed: Date.now()
+            lastAccessed: Date.now(),
           };
           setCurrentLocation(location);
           fetchWeatherData(location.lat, location.lon);
@@ -143,10 +156,10 @@ export function Weather() {
               temperatureAlerts: false,
               severeWeatherAlerts: false,
               dailySummary: false,
-              temperatureThresholds: { high: 30, low: 0 }
+              temperatureThresholds: { high: 30, low: 0 },
             },
             addedAt: Date.now(),
-            lastAccessed: Date.now()
+            lastAccessed: Date.now(),
           };
           setCurrentLocation(fallback);
           fetchWeatherData(fallback.lat, fallback.lon);
@@ -168,10 +181,10 @@ export function Weather() {
           temperatureAlerts: false,
           severeWeatherAlerts: false,
           dailySummary: false,
-          temperatureThresholds: { high: 30, low: 0 }
+          temperatureThresholds: { high: 30, low: 0 },
         },
         addedAt: Date.now(),
-        lastAccessed: Date.now()
+        lastAccessed: Date.now(),
       };
       setCurrentLocation(fallback);
       fetchWeatherData(fallback.lat, fallback.lon);
@@ -184,11 +197,9 @@ export function Weather() {
 
     // Update last accessed time for saved locations
     if (savedLocations.some(loc => loc.id === location.id)) {
-      setSavedLocations(prev => prev.map(loc =>
-        loc.id === location.id
-          ? { ...loc, lastAccessed: Date.now() }
-          : loc
-      ));
+      setSavedLocations(prev =>
+        prev.map(loc => (loc.id === location.id ? { ...loc, lastAccessed: Date.now() } : loc))
+      );
     }
   };
 
@@ -225,7 +236,7 @@ export function Weather() {
 
   const convertTemperature = (temp: number) => {
     if (temperatureUnit === 'fahrenheit') {
-      return Math.round((temp * 9/5) + 32);
+      return Math.round((temp * 9) / 5 + 32);
     }
     return temp;
   };
@@ -267,27 +278,48 @@ export function Weather() {
     }
   };
 
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
+  };
+
   useEffect(() => {
     getCurrentLocation();
   }, []);
+
+  // Close mobile menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (mobileMenuOpen) {
+        const target = event.target as Element;
+        if (!target.closest('[data-mobile-menu]') && !target.closest('[data-hamburger]')) {
+          setMobileMenuOpen(false);
+        }
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [mobileMenuOpen]);
 
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
         {/* Navigation */}
-        <nav className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur dark:bg-gray-950/95 dark:border-gray-800">
-          <div className="container mx-auto flex h-16 items-center justify-between px-4 max-w-6xl">
+        <nav className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur dark:border-gray-800 dark:bg-gray-950/95">
+          <div className="container mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
             <div className="flex items-center space-x-2">
               <Button
                 variant="ghost"
                 onClick={() => window.history.back()}
-                className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
+                className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
               >
-                ← Back to Portfolio
+                ← Back
               </Button>
             </div>
             <div className="flex items-center space-x-2">
-              <span className="text-xl font-bold text-gray-900 dark:text-gray-100">Weather Dashboard</span>
+              <span className="text-lg font-bold text-gray-900 md:text-xl dark:text-gray-100">
+                Weather Dashboard
+              </span>
             </div>
             <DarkModeToggle />
           </div>
@@ -309,19 +341,21 @@ export function Weather() {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
         {/* Navigation */}
-        <nav className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur dark:bg-gray-950/95 dark:border-gray-800">
-          <div className="container mx-auto flex h-16 items-center justify-between px-4 max-w-6xl">
+        <nav className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur dark:border-gray-800 dark:bg-gray-950/95">
+          <div className="container mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
             <div className="flex items-center space-x-2">
               <Button
                 variant="ghost"
                 onClick={() => window.history.back()}
-                className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
+                className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
               >
-                ← Back to Portfolio
+                ← Back
               </Button>
             </div>
             <div className="flex items-center space-x-2">
-              <span className="text-xl font-bold text-gray-900 dark:text-gray-100">Weather Dashboard</span>
+              <span className="text-lg font-bold text-gray-900 md:text-xl dark:text-gray-100">
+                Weather Dashboard
+              </span>
             </div>
             <DarkModeToggle />
           </div>
@@ -331,7 +365,7 @@ export function Weather() {
           <div className="flex items-center justify-center py-20">
             <div className="text-center">
               <div className="mb-4 text-6xl">🌩️</div>
-              <p className="text-lg text-red-600 dark:text-red-400 mb-4">{error}</p>
+              <p className="mb-4 text-lg text-red-600 dark:text-red-400">{error}</p>
               <Button onClick={getCurrentLocation}>Try Again</Button>
             </div>
           </div>
@@ -343,39 +377,171 @@ export function Weather() {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
       {/* Navigation */}
-      <nav className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur dark:bg-gray-950/95 dark:border-gray-800">
-        <div className="container mx-auto flex h-16 items-center justify-between px-4 max-w-6xl">
-          <div className="flex items-center space-x-2">
+      <nav className="sticky top-0 z-[60] w-full border-b border-gray-200 bg-white/95 backdrop-blur dark:border-gray-800 dark:bg-gray-950/95">
+        <div className="container mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
+          <div className="flex flex-1 items-center space-x-2">
             <Button
               variant="ghost"
               onClick={() => window.history.back()}
               className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
             >
-              ← Back to Portfolio
+              <span className="hidden sm:inline">← Back</span>
+              <span className="sm:hidden">←</span>
             </Button>
           </div>
-          <div className="flex items-center space-x-2">
-            <span className="text-xl font-bold text-gray-900 dark:text-gray-100">Weather Dashboard</span>
+
+          <div className="flex items-center justify-center">
+            <span className="text-center text-lg font-bold text-gray-900 sm:text-xl dark:text-gray-100">
+              Weather Dashboard
+            </span>
           </div>
-          <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm" onClick={toggleTemperatureUnit} className="text-xs">
-              {temperatureUnit === 'celsius' ? '°F' : '°C'}
-            </Button>
-            <Button variant="outline" size="sm" onClick={toggleWindUnit} className="text-xs">
-              {windUnit === 'kmh' ? 'mph' : 'km/h'}
-            </Button>
-            <Button variant="outline" size="sm" onClick={toggleTimeFormat} className="text-xs">
-              {timeFormat === '12h' ? '24H' : '12H'}
-            </Button>
-            <Button variant="outline" size="sm" onClick={handleRefresh} className="text-xs">
-              🔄
-            </Button>
-            <DarkModeToggle />
+
+          <div className="flex flex-1 items-center justify-end gap-2">
+            {/* Mobile: Hamburger menu */}
+            <div className="flex items-center gap-2 sm:hidden">
+              <DarkModeToggle />
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+                data-hamburger
+              >
+                <div className="space-y-1">
+                  <div className="h-0.5 w-4 bg-gray-600 dark:bg-gray-400"></div>
+                  <div className="h-0.5 w-4 bg-gray-600 dark:bg-gray-400"></div>
+                  <div className="h-0.5 w-4 bg-gray-600 dark:bg-gray-400"></div>
+                </div>
+              </Button>
+            </div>
+
+            {/* Desktop: Show all controls */}
+            <div className="hidden items-center gap-2 sm:flex">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={toggleTemperatureUnit}
+                className="text-xs"
+              >
+                {temperatureUnit === 'celsius' ? '°F' : '°C'}
+              </Button>
+              <Button variant="outline" size="sm" onClick={toggleWindUnit} className="text-xs">
+                {windUnit === 'kmh' ? 'mph' : 'km/h'}
+              </Button>
+              <Button variant="outline" size="sm" onClick={toggleTimeFormat} className="text-xs">
+                {timeFormat === '12h' ? '24H' : '12H'}
+              </Button>
+              <Button variant="outline" size="sm" onClick={handleRefresh} className="text-xs">
+                🔄
+              </Button>
+              <DarkModeToggle />
+            </div>
           </div>
         </div>
       </nav>
 
-      <div className="container mx-auto max-w-6xl px-4 py-8">
+      {/* Mobile Menu Overlay - Outside navigation */}
+      {mobileMenuOpen && (
+        <div className="fixed inset-0 z-[70] md:hidden">
+          <div className="fixed inset-0 bg-black/50" onClick={closeMobileMenu}></div>
+          <div
+            className="fixed top-0 right-0 h-full w-64 border-l border-gray-200 bg-white shadow-xl dark:border-gray-700 dark:bg-gray-900"
+            data-mobile-menu
+          >
+            {/* Menu Header */}
+            <div className="flex items-center justify-between border-b border-gray-200 p-4 dark:border-gray-700">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Settings</h3>
+              <button
+                onClick={closeMobileMenu}
+                className="rounded-md p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-300"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Menu Content */}
+            <div className="p-4">
+              {/* Temperature Unit */}
+              <div className="mb-6">
+                <div className="mb-3 text-sm font-medium text-gray-700 dark:text-gray-300">
+                  Temperature Unit
+                </div>
+                <button
+                  onClick={() => {
+                    toggleTemperatureUnit();
+                  }}
+                  className="flex h-12 w-full items-center justify-between rounded-md border border-gray-300 bg-gray-50 px-4 text-gray-900 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
+                >
+                  <span>Temperature</span>
+                  <span className="text-sm">{temperatureUnit === 'celsius' ? '°C' : '°F'}</span>
+                </button>
+              </div>
+
+              {/* Wind Speed Unit */}
+              <div className="mb-6">
+                <div className="mb-3 text-sm font-medium text-gray-700 dark:text-gray-300">
+                  Wind Speed Unit
+                </div>
+                <button
+                  onClick={() => {
+                    toggleWindUnit();
+                  }}
+                  className="flex h-12 w-full items-center justify-between rounded-md border border-gray-300 bg-gray-50 px-4 text-gray-900 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
+                >
+                  <span>Wind Speed</span>
+                  <span className="text-sm">{windUnit}</span>
+                </button>
+              </div>
+
+              {/* Time Format */}
+              <div className="mb-6">
+                <div className="mb-3 text-sm font-medium text-gray-700 dark:text-gray-300">
+                  Time Format
+                </div>
+                <button
+                  onClick={() => {
+                    toggleTimeFormat();
+                  }}
+                  className="flex h-12 w-full items-center justify-between rounded-md border border-gray-300 bg-gray-50 px-4 text-gray-900 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
+                >
+                  <span>Time Format</span>
+                  <span className="text-sm">{timeFormat === '12h' ? '12H' : '24H'}</span>
+                </button>
+              </div>
+
+              {/* Actions */}
+              <div className="mb-6">
+                <div className="mb-3 text-sm font-medium text-gray-700 dark:text-gray-300">
+                  Actions
+                </div>
+                <button
+                  onClick={() => {
+                    handleRefresh();
+                    closeMobileMenu();
+                  }}
+                  className="flex h-12 w-full items-center justify-between rounded-md border border-gray-300 bg-gray-50 px-4 text-gray-900 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
+                >
+                  <span>Refresh Data</span>
+                  <span>🔄</span>
+                </button>
+              </div>
+
+              {/* Theme Toggle - for consistency with portfolio */}
+              <div className="border-t border-gray-200 pt-4 dark:border-gray-700">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                    Theme
+                  </span>
+                  <DarkModeToggle />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Main Content */}
+      <div className="container mx-auto max-w-6xl px-4 py-4 sm:py-8">
         {/* Location Search and Management */}
         <LocationSearch
           currentLocation={currentLocation}
@@ -394,8 +560,8 @@ export function Weather() {
 
         {currentWeather && (
           <>
-            {/* Current Weather Grid */}
-            <div className="mb-8 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            {/* Current Weather Grid - Improved mobile responsiveness */}
+            <div className="mb-6 grid grid-cols-1 gap-4 sm:mb-8 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
               <CurrentWeatherCard
                 currentWeather={currentWeather}
                 getWeatherIcon={getWeatherIcon}
@@ -414,9 +580,7 @@ export function Weather() {
               />
 
               {/* Air Quality Card */}
-              {airQuality && (
-                <AirQualityCard airQuality={airQuality} />
-              )}
+              {airQuality && <AirQualityCard airQuality={airQuality} />}
             </div>
 
             {/* Hourly Forecast */}
@@ -445,7 +609,7 @@ export function Weather() {
         )}
 
         {/* Footer with Cache Info */}
-        <div className="mt-8 text-center text-xs text-gray-500 dark:text-gray-400">
+        <div className="mt-6 text-center text-xs text-gray-500 sm:mt-8 dark:text-gray-400">
           <p>Cache size: {weatherService.getCacheSize()} entries</p>
           <p>Data refreshes automatically every 10 minutes</p>
         </div>

@@ -12,19 +12,22 @@ export function Dashboard() {
       {/* Navigation */}
       <nav className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur dark:bg-gray-950/95 dark:border-gray-800">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 max-w-6xl">
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2 flex-1">
             <Button
               variant="ghost"
               onClick={() => window.history.back()}
               className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
             >
-              ← Back to Portfolio
+              <span className="hidden sm:inline">← Back</span>
+              <span className="sm:hidden">←</span>
             </Button>
           </div>
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center justify-center">
             <span className="text-xl font-bold text-gray-900 dark:text-gray-100">Personal Dashboard</span>
           </div>
-          <DarkModeToggle />
+          <div className="flex items-center justify-end flex-1">
+            <DarkModeToggle />
+          </div>
         </div>
       </nav>
 
@@ -34,7 +37,7 @@ export function Dashboard() {
           <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
             Welcome back, Kevin!
           </h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-2">
+          <p className="mt-2 text-gray-600 dark:text-gray-400">
             Here's your personal dashboard to stay organized and inspired.
           </p>
         </div>

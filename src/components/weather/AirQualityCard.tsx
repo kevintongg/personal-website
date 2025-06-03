@@ -41,9 +41,10 @@ export default function AirQualityCard({ airQuality }: AirQualityCardProps) {
   };
 
   const getQualityLabel = (quality: string) => {
-    return quality.split('_').map(word =>
-      word.charAt(0).toUpperCase() + word.slice(1)
-    ).join(' ');
+    return quality
+      .split('_')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
   };
 
   const formatPollutant = (value: number, unit: string = 'μg/m³') => {
@@ -52,55 +53,57 @@ export default function AirQualityCard({ airQuality }: AirQualityCardProps) {
 
   return (
     <Card>
-      <CardHeader>
-        <CardTitle className="flex items-center justify-center gap-2">
-          🌪️ Air Quality
-          <span className={`inline-flex items-center gap-1 px-2 py-1 text-xs font-medium rounded-full ${getAQIColor(airQuality.aqi)}`}>
+      <CardHeader className="pb-3 sm:pb-6">
+        <CardTitle className="flex flex-col items-center justify-center gap-1 text-center sm:flex-row sm:gap-2">
+          <span className="text-sm sm:text-base">🌪️ Air Quality</span>
+          <span
+            className={`inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-medium ${getAQIColor(airQuality.aqi)}`}
+          >
             {getAQIIcon(airQuality.quality)}
-            {getQualityLabel(airQuality.quality)}
+            <span className="hidden sm:inline">{getQualityLabel(airQuality.quality)}</span>
           </span>
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-3 sm:space-y-4">
         {/* AQI Score */}
         <div className="text-center">
-          <div className={`text-3xl font-bold mb-1 ${getAQIColor(airQuality.aqi)}`}>
+          <div className={`mb-1 text-2xl font-bold sm:text-3xl ${getAQIColor(airQuality.aqi)}`}>
             {airQuality.aqi}
           </div>
-          <div className="text-sm text-gray-600 dark:text-gray-400">
+          <div className="text-xs text-gray-600 sm:text-sm dark:text-gray-400">
             Air Quality Index
           </div>
         </div>
 
         {/* Pollutant Levels */}
         <div className="space-y-2">
-          <h4 className="text-sm font-medium text-gray-900 dark:text-gray-100">
+          <h4 className="text-xs font-medium text-gray-900 sm:text-sm dark:text-gray-100">
             Pollutant Levels
           </h4>
-          <div className="grid grid-cols-2 gap-2 text-xs">
+          <div className="grid grid-cols-2 gap-1 text-xs sm:gap-2">
             <div className="flex justify-between">
               <span className="text-gray-600 dark:text-gray-400">PM2.5</span>
-              <span>{formatPollutant(airQuality.pm2_5)}</span>
+              <span className="text-xs">{formatPollutant(airQuality.pm2_5)}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-600 dark:text-gray-400">PM10</span>
-              <span>{formatPollutant(airQuality.pm10)}</span>
+              <span className="text-xs">{formatPollutant(airQuality.pm10)}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-600 dark:text-gray-400">NO₂</span>
-              <span>{formatPollutant(airQuality.no2)}</span>
+              <span className="text-xs">{formatPollutant(airQuality.no2)}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-600 dark:text-gray-400">O₃</span>
-              <span>{formatPollutant(airQuality.o3)}</span>
+              <span className="text-xs">{formatPollutant(airQuality.o3)}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-600 dark:text-gray-400">CO</span>
-              <span>{formatPollutant(airQuality.co)}</span>
+              <span className="text-xs">{formatPollutant(airQuality.co)}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-600 dark:text-gray-400">SO₂</span>
-              <span>{formatPollutant(airQuality.so2)}</span>
+              <span className="text-xs">{formatPollutant(airQuality.so2)}</span>
             </div>
           </div>
         </div>
@@ -108,17 +111,17 @@ export default function AirQualityCard({ airQuality }: AirQualityCardProps) {
         {/* Health Recommendations */}
         {airQuality.healthRecommendations.length > 0 && (
           <div className="space-y-2">
-            <h4 className="text-sm font-medium text-gray-900 dark:text-gray-100">
-              Health Recommendations
+            <h4 className="text-xs font-medium text-gray-900 sm:text-sm dark:text-gray-100">
+              Health Tips
             </h4>
             <div className="space-y-1">
-              {airQuality.healthRecommendations.map((recommendation, index) => (
+              {airQuality.healthRecommendations.slice(0, 2).map((recommendation, index) => (
                 <div
                   key={index}
-                  className="text-xs text-gray-600 dark:text-gray-400 flex items-start gap-1"
+                  className="flex items-start gap-1 text-xs text-gray-600 dark:text-gray-400"
                 >
-                  <span className="text-blue-500 mt-1">•</span>
-                  <span>{recommendation}</span>
+                  <span className="mt-1 flex-shrink-0 text-blue-500">•</span>
+                  <span className="leading-tight">{recommendation}</span>
                 </div>
               ))}
             </div>
