@@ -1,8 +1,9 @@
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import { Button } from './components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './components/ui/card';
+import { ContactForm } from './components/ui/contact-form';
 import { DarkModeToggle } from './components/ui/dark-mode-toggle';
 import { MobileNav } from './components/ui/mobile-nav';
-import { ContactForm } from './components/ui/contact-form';
 import { SkillsSection } from './components/ui/skill-bar';
 
 function App() {
@@ -381,6 +382,7 @@ function App() {
           <p>&copy; 2025 Kevin Tong. Built with React, TypeScript, and Tailwind CSS.</p>
         </div>
       </footer>
+      <SpeedInsights />
     </div>
   );
 }
