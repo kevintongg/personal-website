@@ -236,7 +236,9 @@ export function Portfolio() {
                 </div>
                 <div className="flex gap-2">
                   <Button variant="outline" size="sm" asChild>
-                    <Link to="/dashboard">View Project</Link>
+                    <a href="https://github.com/yourusername/portfolio" target="_blank" rel="noopener noreferrer">
+                      View Code
+                    </a>
                   </Button>
                   <Button size="sm" asChild>
                     <Link to="/dashboard">Live Demo</Link>
@@ -336,7 +338,9 @@ export function Portfolio() {
                 </div>
                 <div className="flex gap-2">
                   <Button variant="outline" size="sm" asChild>
-                    <Link to="/weather">View Project</Link>
+                    <a href="https://github.com/yourusername/portfolio" target="_blank" rel="noopener noreferrer">
+                      View Code
+                    </a>
                   </Button>
                   <Button size="sm" asChild>
                     <Link to="/weather">Live Demo</Link>
