@@ -53,7 +53,7 @@ export default function AirQualityCard({ airQuality }: AirQualityCardProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="flex items-center gap-2">
+        <CardTitle className="flex items-center justify-center gap-2">
           🌪️ Air Quality
           <span className={`inline-flex items-center gap-1 px-2 py-1 text-xs font-medium rounded-full ${getAQIColor(airQuality.aqi)}`}>
             {getAQIIcon(airQuality.quality)}

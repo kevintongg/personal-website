@@ -34,7 +34,7 @@ export default function HourlyForecast({
   return (
     <Card className="mb-8">
       <CardHeader>
-        <CardTitle className="flex items-center gap-2">
+        <CardTitle className="flex items-center justify-center gap-2 text-center">
           <span>🕐</span>
           <span>24-Hour Forecast</span>
         </CardTitle>

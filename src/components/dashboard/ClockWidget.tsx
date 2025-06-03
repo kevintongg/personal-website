@@ -88,23 +88,23 @@ export function ClockWidget() {
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="text-center">
-          <div className="text-4xl font-mono font-bold text-gray-900 dark:text-gray-100 mb-2">
+          <div className="text-4xl font-bold text-gray-900 dark:text-gray-100">
             {formatTime(currentTime)}
           </div>
-          <div className="text-lg text-gray-600 dark:text-gray-400">
+          <div className="text-lg text-gray-600 dark:text-gray-400 mt-2">
             {formatDate(currentTime)}
           </div>
         </div>
         <div className="grid grid-cols-2 gap-4 pt-4 border-t dark:border-gray-700">
           <div className="text-center">
             <div className="text-sm text-gray-500 dark:text-gray-400">UTC</div>
-            <div className="font-mono text-sm font-medium text-gray-900 dark:text-gray-100">
+            <div className="text-sm font-medium text-gray-900 dark:text-gray-100 mt-1">
               {formatUTCTime(currentTime)}
             </div>
           </div>
           <div className="text-center">
             <div className="text-sm text-gray-500 dark:text-gray-400">Timezone</div>
-            <div className="font-mono text-sm font-medium text-gray-900 dark:text-gray-100">
+            <div className="text-sm font-medium text-gray-900 dark:text-gray-100 mt-1">
               {formatTimezone(Intl.DateTimeFormat().resolvedOptions().timeZone)}
             </div>
           </div>

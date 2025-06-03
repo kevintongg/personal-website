@@ -1,4 +1,4 @@
-import { WeatherRecommendation } from '../../lib/weather/types';
+import type { WeatherRecommendation } from '../../lib/weather/types';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 
 interface WeatherRecommendationsProps {
@@ -73,7 +73,7 @@ export default function WeatherRecommendations({ recommendations }: WeatherRecom
   return (
     <Card className="mb-8">
       <CardHeader>
-        <CardTitle className="flex items-center gap-2">
+        <CardTitle className="flex items-center justify-center gap-2 text-center">
           💡 Smart Recommendations
           <span className="inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-blue-500 rounded-full">
             {recommendations.length}

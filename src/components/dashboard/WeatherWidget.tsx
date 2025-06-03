@@ -287,7 +287,7 @@ export function WeatherWidget() {
         {weather && (
           <>
             <div className="text-center">
-              <div className="flex items-center justify-center gap-2 mb-2">
+              <div className="flex items-center justify-center gap-2">
                 <div
                   className="w-12 h-12 flex items-center justify-center text-3xl"
                   title={`Weather: ${weather.description} (Icon: ${weather.icon})`}
@@ -298,7 +298,7 @@ export function WeatherWidget() {
                   {getDisplayTemperature()}
                 </div>
               </div>
-              <div className="text-sm text-gray-600 dark:text-gray-400 capitalize">
+              <div className="text-sm text-gray-600 dark:text-gray-400 capitalize mt-2">
                 {weather.description}
               </div>
               <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
@@ -308,13 +308,13 @@ export function WeatherWidget() {
             <div className="grid grid-cols-2 gap-4 pt-4 border-t dark:border-gray-700">
               <div className="text-center">
                 <div className="text-sm text-gray-500 dark:text-gray-400">Humidity</div>
-                <div className="font-medium text-gray-900 dark:text-gray-100">
+                <div className="font-medium text-gray-900 dark:text-gray-100 mt-1">
                   {weather.humidity}%
                 </div>
               </div>
               <div className="text-center">
                 <div className="text-sm text-gray-500 dark:text-gray-400">Wind</div>
-                <div className="font-medium text-gray-900 dark:text-gray-100">
+                <div className="font-medium text-gray-900 dark:text-gray-100 mt-1">
                   {getDisplayWindSpeed()}
                 </div>
               </div>

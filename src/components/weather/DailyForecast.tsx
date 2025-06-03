@@ -34,12 +34,14 @@ export default function DailyForecast({
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="flex items-center justify-between">
-          <span>{getForecastTitle()}</span>
-          <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
+        <div className="text-center">
+          <CardTitle className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-1">
+            {getForecastTitle()}
+          </CardTitle>
+          <p className="text-sm text-gray-500 dark:text-gray-400">
             {getForecastSubtitle()}
-          </span>
-        </CardTitle>
+          </p>
+        </div>
       </CardHeader>
       <CardContent>
         {dailyForecast.length === 0 ? (

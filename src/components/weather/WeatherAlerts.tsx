@@ -1,6 +1,6 @@
+import { WeatherAlert } from '../../lib/weather/types';
 import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
-import { WeatherAlert } from '../../lib/weather/types';
 
 interface WeatherAlertsProps {
   alerts: WeatherAlert[];
@@ -53,7 +53,7 @@ export default function WeatherAlerts({ alerts }: WeatherAlertsProps) {
   return (
     <Card className="mb-8">
       <CardHeader>
-        <CardTitle className="flex items-center gap-2">
+        <CardTitle className="flex items-center justify-center gap-2 text-center">
           🚨 Weather Alerts
           <span className="inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 rounded-full">
             {alerts.length}

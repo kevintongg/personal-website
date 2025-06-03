@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { Button } from '../components/ui/button';
 import { DarkModeToggle } from '../components/ui/dark-mode-toggle';
 import AirQualityCard from '../components/weather/AirQualityCard';
@@ -275,16 +274,26 @@ export function Weather() {
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
-        <div className="container mx-auto max-w-6xl px-4 py-8">
-          <div className="mb-8 flex items-center justify-between">
-            <Link to="/">
-              <Button variant="outline" size="sm" className="flex items-center gap-2">
+        {/* Navigation */}
+        <nav className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur dark:bg-gray-950/95 dark:border-gray-800">
+          <div className="container mx-auto flex h-16 items-center justify-between px-4 max-w-6xl">
+            <div className="flex items-center space-x-2">
+              <Button
+                variant="ghost"
+                onClick={() => window.history.back()}
+                className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
+              >
                 ← Back to Portfolio
               </Button>
-            </Link>
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Weather Dashboard</h1>
-            <div className="w-[140px]"></div> {/* Spacer for center alignment */}
+            </div>
+            <div className="flex items-center space-x-2">
+              <span className="text-xl font-bold text-gray-900 dark:text-gray-100">Weather Dashboard</span>
+            </div>
+            <DarkModeToggle />
           </div>
+        </nav>
+
+        <div className="container mx-auto max-w-6xl px-4 py-8">
           <div className="flex items-center justify-center py-20">
             <div className="text-center">
               <div className="mb-4 text-6xl">🌤️</div>
@@ -299,16 +308,26 @@ export function Weather() {
   if (error) {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
-        <div className="container mx-auto max-w-6xl px-4 py-8">
-          <div className="mb-8 flex items-center justify-between">
-            <Link to="/">
-              <Button variant="outline" size="sm" className="flex items-center gap-2">
+        {/* Navigation */}
+        <nav className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur dark:bg-gray-950/95 dark:border-gray-800">
+          <div className="container mx-auto flex h-16 items-center justify-between px-4 max-w-6xl">
+            <div className="flex items-center space-x-2">
+              <Button
+                variant="ghost"
+                onClick={() => window.history.back()}
+                className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
+              >
                 ← Back to Portfolio
               </Button>
-            </Link>
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Weather Dashboard</h1>
-            <div className="w-[140px]"></div> {/* Spacer for center alignment */}
+            </div>
+            <div className="flex items-center space-x-2">
+              <span className="text-xl font-bold text-gray-900 dark:text-gray-100">Weather Dashboard</span>
+            </div>
+            <DarkModeToggle />
           </div>
+        </nav>
+
+        <div className="container mx-auto max-w-6xl px-4 py-8">
           <div className="flex items-center justify-center py-20">
             <div className="text-center">
               <div className="mb-4 text-6xl">🌩️</div>
@@ -323,36 +342,40 @@ export function Weather() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
-      <div className="container mx-auto max-w-6xl px-4 py-8">
-        {/* Header */}
-        <div className="mb-8 flex items-center justify-between pb-6 border-b border-gray-200 dark:border-gray-700">
-          <Link to="/">
-            <Button variant="outline" size="sm" className="flex items-center gap-2">
+      {/* Navigation */}
+      <nav className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur dark:bg-gray-950/95 dark:border-gray-800">
+        <div className="container mx-auto flex h-16 items-center justify-between px-4 max-w-6xl">
+          <div className="flex items-center space-x-2">
+            <Button
+              variant="ghost"
+              onClick={() => window.history.back()}
+              className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
+            >
               ← Back to Portfolio
             </Button>
-          </Link>
-
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
-            Weather Dashboard
-          </h1>
-
+          </div>
+          <div className="flex items-center space-x-2">
+            <span className="text-xl font-bold text-gray-900 dark:text-gray-100">Weather Dashboard</span>
+          </div>
           <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm" onClick={toggleTemperatureUnit}>
+            <Button variant="outline" size="sm" onClick={toggleTemperatureUnit} className="text-xs">
               {temperatureUnit === 'celsius' ? '°F' : '°C'}
             </Button>
-            <Button variant="outline" size="sm" onClick={toggleWindUnit}>
+            <Button variant="outline" size="sm" onClick={toggleWindUnit} className="text-xs">
               {windUnit === 'kmh' ? 'mph' : 'km/h'}
             </Button>
-            <Button variant="outline" size="sm" onClick={toggleTimeFormat}>
+            <Button variant="outline" size="sm" onClick={toggleTimeFormat} className="text-xs">
               {timeFormat === '12h' ? '24H' : '12H'}
             </Button>
-            <Button variant="outline" size="sm" onClick={handleRefresh}>
+            <Button variant="outline" size="sm" onClick={handleRefresh} className="text-xs">
               🔄
             </Button>
             <DarkModeToggle />
           </div>
         </div>
+      </nav>
 
+      <div className="container mx-auto max-w-6xl px-4 py-8">
         {/* Location Search and Management */}
         <LocationSearch
           currentLocation={currentLocation}

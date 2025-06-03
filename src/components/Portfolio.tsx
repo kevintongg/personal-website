@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from './ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { ContactForm } from './ui/contact-form';
@@ -13,6 +13,8 @@ import {
 import { SkillsSection } from './ui/skill-bar';
 
 export function Portfolio() {
+  const navigate = useNavigate();
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
       {/* Navigation */}
@@ -213,7 +215,7 @@ export function Portfolio() {
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {/* Personal Dashboard Project */}
             <Card className="group overflow-hidden transition-shadow hover:shadow-lg dark:hover:shadow-gray-800/25">
-              <div className="cursor-pointer" onClick={() => window.open('/dashboard', '_blank')}>
+              <div className="cursor-pointer" onClick={() => navigate('/dashboard')}>
                 <DashboardPreview />
               </div>
               <CardHeader>
@@ -236,7 +238,7 @@ export function Portfolio() {
                 </div>
                 <div className="flex gap-2">
                   <Button variant="outline" size="sm" asChild>
-                    <a href="https://github.com/yourusername/portfolio" target="_blank" rel="noopener noreferrer">
+                    <a href="https://github.com/kevintongg/portfolio/blob/main/src/pages/Dashboard.tsx" target="_blank" rel="noopener noreferrer">
                       View Code
                     </a>
                   </Button>
@@ -315,7 +317,7 @@ export function Portfolio() {
 
             {/* Weather Dashboard */}
             <Card className="group overflow-hidden transition-shadow hover:shadow-lg dark:hover:shadow-gray-800/25">
-              <div className="cursor-pointer" onClick={() => window.open('/weather', '_blank')}>
+              <div className="cursor-pointer" onClick={() => navigate('/weather')}>
                 <WeatherDashboardPreview />
               </div>
               <CardHeader>
@@ -338,7 +340,7 @@ export function Portfolio() {
                 </div>
                 <div className="flex gap-2">
                   <Button variant="outline" size="sm" asChild>
-                    <a href="https://github.com/yourusername/portfolio" target="_blank" rel="noopener noreferrer">
+                    <a href="https://github.com/kevintongg/portfolio/blob/main/src/pages/Weather.tsx" target="_blank" rel="noopener noreferrer">
                       View Code
                     </a>
                   </Button>

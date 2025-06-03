@@ -9,7 +9,7 @@ export default function WeatherDetailsCard({ currentWeather }: WeatherDetailsCar
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Details</CardTitle>
+        <CardTitle className="text-center">Details</CardTitle>
       </CardHeader>
       <CardContent className="space-y-3">
         <div className="flex justify-between">
