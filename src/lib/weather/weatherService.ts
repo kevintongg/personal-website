@@ -193,9 +193,10 @@ class WeatherService {
         icon: this.getWeatherIcon(oneCallData.current.weather[0].icon, oneCallData.current.weather[0].description),
         dewPoint: Math.round(oneCallData.current.dew_point),
         cloudiness: oneCallData.current.clouds,
-        windSpeed: Math.round(oneCallData.current.wind_speed * 3.6), // Convert m/s to km/h
+        // Store wind speed in m/s and convert for display later
+        windSpeed: oneCallData.current.wind_speed,
         windDirection: oneCallData.current.wind_deg || 0,
-        windGust: oneCallData.current.wind_gust ? Math.round(oneCallData.current.wind_gust * 3.6) : undefined,
+        windGust: oneCallData.current.wind_gust || undefined,
         sunrise: oneCallData.current.sunrise,
         sunset: oneCallData.current.sunset,
         timezone: oneCallData.timezone
@@ -211,7 +212,8 @@ class WeatherService {
         uvIndex: hour.uvi || 0, // UV index available in hourly too!
         description: hour.weather[0].description,
         icon: this.getWeatherIcon(hour.weather[0].icon, hour.weather[0].description),
-        windSpeed: Math.round(hour.wind_speed * 3.6),
+        // Wind speed returned in m/s
+        windSpeed: hour.wind_speed,
         windDirection: hour.wind_deg || 0,
         cloudiness: hour.clouds,
         precipitation: hour.rain ? hour.rain['1h'] || 0 : hour.snow ? hour.snow['1h'] || 0 : 0,
@@ -233,7 +235,8 @@ class WeatherService {
         humidity: day.humidity,
         pressure: day.pressure,
         uvIndex: day.uvi || 0, // UV index for daily forecast too!
-        windSpeed: Math.round(day.wind_speed * 3.6),
+        // Wind speed returned in m/s
+        windSpeed: day.wind_speed,
         windDirection: day.wind_deg || 0,
         cloudiness: day.clouds,
         precipitation: day.rain || day.snow || 0,
