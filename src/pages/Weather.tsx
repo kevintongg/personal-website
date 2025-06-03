@@ -305,7 +305,7 @@ export function Weather() {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
         {/* Navigation */}
-        <nav className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur dark:border-gray-800 dark:bg-gray-950/95">
+        <nav className="sticky top-0 z-50 w-full border-b border-gray-200/60 bg-white/95 backdrop-blur dark:border-gray-800/60 dark:bg-gray-950/95">
           <div className="container mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
             <div className="flex items-center space-x-2">
               <Button
@@ -341,7 +341,7 @@ export function Weather() {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
         {/* Navigation */}
-        <nav className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur dark:border-gray-800 dark:bg-gray-950/95">
+        <nav className="sticky top-0 z-50 w-full border-b border-gray-200/60 bg-white/95 backdrop-blur dark:border-gray-800/60 dark:bg-gray-950/95">
           <div className="container mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
             <div className="flex items-center space-x-2">
               <Button
@@ -377,7 +377,7 @@ export function Weather() {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
       {/* Navigation */}
-      <nav className="sticky top-0 z-[60] w-full border-b border-gray-200 bg-white/95 backdrop-blur dark:border-gray-800 dark:bg-gray-950/95">
+      <nav className="sticky top-0 z-[60] w-full border-b border-gray-200/60 bg-white/95 backdrop-blur dark:border-gray-800/60 dark:bg-gray-950/95">
         <div className="container mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
           <div className="flex flex-1 items-center space-x-2">
             <Button

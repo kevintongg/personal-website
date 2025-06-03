@@ -18,7 +18,7 @@ export function Portfolio() {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
       {/* Navigation */}
-      <nav className="sticky top-0 z-50 w-full border-b bg-white dark:border-gray-800 dark:bg-gray-950">
+      <nav className="sticky top-0 z-50 w-full border-b border-gray-200/60 bg-white dark:border-gray-800/60 dark:bg-gray-950">
         <div className="container mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
           <div className="flex items-center space-x-2">
             <span className="text-xl font-bold text-gray-900 dark:text-gray-100">Kevin Tong</span>
@@ -99,6 +99,9 @@ export function Portfolio() {
           </div>
         </div>
       </section>
+
+      {/* Divider */}
+      <div className="mx-auto max-w-4xl border-t border-gray-200 dark:border-gray-800"></div>
 
       {/* About Section */}
       <section id="about" className="container mx-auto max-w-6xl px-4 py-20">
@@ -254,6 +257,47 @@ export function Portfolio() {
               </CardContent>
             </Card>
 
+            {/* Weather Dashboard */}
+            <Card className="group overflow-hidden transition-shadow hover:shadow-lg dark:hover:shadow-gray-800/25">
+              <div className="cursor-pointer" onClick={() => navigate('/weather')}>
+                <WeatherDashboardPreview />
+              </div>
+              <CardHeader>
+                <CardTitle>Weather Dashboard</CardTitle>
+                <CardDescription>
+                  A comprehensive weather dashboard with location-based forecasts, hourly
+                  predictions, 7-day outlook, and interactive weather data visualization.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="mb-4 flex flex-wrap gap-2">
+                  <span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">
+                    React
+                  </span>
+                  <span className="rounded-full bg-indigo-100 px-3 py-1 text-xs font-medium text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300">
+                    TypeScript
+                  </span>
+                  <span className="rounded-full bg-sky-100 px-3 py-1 text-xs font-medium text-sky-700 dark:bg-sky-900/30 dark:text-sky-300">
+                    OpenWeather API
+                  </span>
+                </div>
+                <div className="flex gap-2">
+                  <Button variant="outline" size="sm" asChild>
+                    <a
+                      href="https://github.com/kevintongg/portfolio/blob/main/src/pages/Weather.tsx"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      View Code
+                    </a>
+                  </Button>
+                  <Button size="sm" asChild>
+                    <Link to="/weather">Live Demo</Link>
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+
             {/* E-Commerce Platform */}
             <Card className="group overflow-hidden transition-shadow hover:shadow-lg dark:hover:shadow-gray-800/25">
               <div className="cursor-pointer">
@@ -319,50 +363,12 @@ export function Portfolio() {
                 </div>
               </CardContent>
             </Card>
-
-            {/* Weather Dashboard */}
-            <Card className="group overflow-hidden transition-shadow hover:shadow-lg dark:hover:shadow-gray-800/25">
-              <div className="cursor-pointer" onClick={() => navigate('/weather')}>
-                <WeatherDashboardPreview />
-              </div>
-              <CardHeader>
-                <CardTitle>Weather Dashboard</CardTitle>
-                <CardDescription>
-                  A comprehensive weather dashboard with location-based forecasts, hourly
-                  predictions, 7-day outlook, and interactive weather data visualization.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="mb-4 flex flex-wrap gap-2">
-                  <span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">
-                    React
-                  </span>
-                  <span className="rounded-full bg-indigo-100 px-3 py-1 text-xs font-medium text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300">
-                    TypeScript
-                  </span>
-                  <span className="rounded-full bg-sky-100 px-3 py-1 text-xs font-medium text-sky-700 dark:bg-sky-900/30 dark:text-sky-300">
-                    OpenWeather API
-                  </span>
-                </div>
-                <div className="flex gap-2">
-                  <Button variant="outline" size="sm" asChild>
-                    <a
-                      href="https://github.com/kevintongg/portfolio/blob/main/src/pages/Weather.tsx"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      View Code
-                    </a>
-                  </Button>
-                  <Button size="sm" asChild>
-                    <Link to="/weather">Live Demo</Link>
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
           </div>
         </div>
       </section>
+
+      {/* Divider - Projects and Contact have same background */}
+      <div className="mx-auto max-w-6xl border-t border-gray-200 dark:border-gray-800"></div>
 
       {/* Contact Section */}
       <section id="contact" className="bg-gray-50 py-20 dark:bg-gray-950">
