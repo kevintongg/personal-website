@@ -19,7 +19,7 @@ export default function LocationSearch({
   onLocationSelect,
   onLocationSave,
   onLocationRemove,
-  onCurrentLocationRequest
+  onCurrentLocationRequest,
 }: LocationSearchProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<SavedLocation[]>([]);
@@ -62,15 +62,15 @@ export default function LocationSearch({
         temperatureAlerts: false,
         severeWeatherAlerts: true,
         dailySummary: false,
-        temperatureThresholds: { high: 30, low: 0 }
-      }
+        temperatureThresholds: { high: 30, low: 0 },
+      },
     };
     onLocationSave(savedLocation);
   };
 
   const isLocationSaved = (lat: number, lon: number) => {
-    return savedLocations.some(loc =>
-      Math.abs(loc.lat - lat) < 0.01 && Math.abs(loc.lon - lon) < 0.01
+    return savedLocations.some(
+      loc => Math.abs(loc.lat - lat) < 0.01 && Math.abs(loc.lon - lon) < 0.01
     );
   };
 
@@ -106,26 +106,26 @@ export default function LocationSearch({
               type="text"
               placeholder="Search for a city or location..."
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
+              onChange={e => setSearchQuery(e.target.value)}
+              className="w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
             />
             {isSearching && (
-              <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-500"></div>
+              <div className="absolute top-1/2 right-3 -translate-y-1/2 transform">
+                <div className="h-4 w-4 animate-spin rounded-full border-b-2 border-blue-500"></div>
               </div>
             )}
           </div>
 
           {/* Search Results */}
           {searchResults.length > 0 && (
-            <div className="space-y-2 max-h-64 overflow-y-auto">
-              {searchResults.map((location) => (
+            <div className="max-h-64 space-y-2 overflow-y-auto">
+              {searchResults.map(location => (
                 <div
                   key={location.id}
-                  className="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800/50 dark:border-gray-700 cursor-pointer"
+                  className="flex cursor-pointer items-center justify-between rounded-lg border p-3 hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800/50"
                   onClick={() => handleLocationSelect(location)}
                 >
-                  <div className="flex-1 min-w-0">
+                  <div className="min-w-0 flex-1">
                     <p className="font-medium text-gray-900 dark:text-gray-100">
                       {formatLocationDisplay(location)}
                     </p>
@@ -138,7 +138,7 @@ export default function LocationSearch({
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={(e) => {
+                        onClick={e => {
                           e.stopPropagation();
                           handleLocationSave(location);
                         }}
@@ -149,7 +149,7 @@ export default function LocationSearch({
                     <Button
                       variant="default"
                       size="sm"
-                      onClick={(e) => {
+                      onClick={e => {
                         e.stopPropagation();
                         handleLocationSelect(location);
                       }}
@@ -163,7 +163,7 @@ export default function LocationSearch({
           )}
 
           {searchQuery.length >= 2 && !isSearching && searchResults.length === 0 && (
-            <p className="text-sm text-gray-600 dark:text-gray-400 text-center py-4">
+            <p className="py-4 text-center text-sm text-gray-600 dark:text-gray-400">
               No locations found for "{searchQuery}"
             </p>
           )}
@@ -175,27 +175,27 @@ export default function LocationSearch({
             <h3 className="text-sm font-medium text-gray-900 dark:text-gray-100">
               Saved Locations
             </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-              {savedLocations.map((location) => (
+            <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
+              {savedLocations.map(location => (
                 <div
                   key={location.id}
-                  className={`group relative flex items-center justify-between p-2 border rounded-lg transition-colors ${
+                  className={`group relative flex items-center justify-between rounded-lg border p-2 transition-colors ${
                     currentLocation?.id === location.id
-                      ? 'bg-blue-100 border-blue-500 dark:bg-blue-900/30 dark:border-blue-500'
-                      : 'hover:bg-gray-50 dark:hover:bg-gray-800/50 dark:border-gray-700'
+                      ? 'border-blue-500 bg-blue-100 dark:border-blue-500 dark:bg-blue-900/30'
+                      : 'hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800/50'
                   }`}
                 >
                   <Button
                     variant="ghost"
                     size="sm"
                     onClick={() => handleLocationSelect(location)}
-                    className="flex-1 justify-start text-left p-0 h-auto"
+                    className="h-auto flex-1 justify-start p-0 text-left"
                   >
                     <div className="min-w-0">
-                      <p className="font-medium text-sm truncate">
+                      <p className="truncate text-sm font-medium">
                         {location.nickname || location.name}
                       </p>
-                      <p className="text-xs text-gray-600 dark:text-gray-400 truncate">
+                      <p className="truncate text-xs text-gray-600 dark:text-gray-400">
                         {location.country}
                       </p>
                     </div>
@@ -206,14 +206,14 @@ export default function LocationSearch({
                     variant="ghost"
                     size="sm"
                     onClick={() => onLocationRemove(location.id)}
-                    className="opacity-0 group-hover:opacity-100 transition-opacity p-1 h-6 w-6 text-red-500 hover:text-red-700"
+                    className="h-6 w-6 p-1 text-red-500 opacity-0 transition-opacity group-hover:opacity-100 hover:text-red-700"
                   >
                     ✕
                   </Button>
 
                   {/* Notification indicator */}
                   {location.notifications.enabled && (
-                    <div className="absolute top-1 right-1 w-2 h-2 bg-green-500 rounded-full"></div>
+                    <div className="absolute top-1 right-1 h-2 w-2 rounded-full bg-green-500"></div>
                   )}
                 </div>
               ))}
@@ -223,18 +223,16 @@ export default function LocationSearch({
 
         {/* Quick Access Cities */}
         <div className="space-y-3">
-          <h3 className="text-sm font-medium text-gray-900 dark:text-gray-100">
-            Popular Cities
-          </h3>
+          <h3 className="text-sm font-medium text-gray-900 dark:text-gray-100">Popular Cities</h3>
           <div className="flex flex-wrap gap-2">
             {[
               { name: 'Vancouver', country: 'CA', lat: 49.2827, lon: -123.1207 },
               { name: 'Hong Kong', country: 'HK', lat: 22.3193, lon: 114.1694 },
               { name: 'London', country: 'UK', lat: 51.5074, lon: -0.1278 },
-              { name: 'New York', country: 'US', lat: 40.7128, lon: -74.0060 },
+              { name: 'New York', country: 'US', lat: 40.7128, lon: -74.006 },
               { name: 'Tokyo', country: 'JP', lat: 35.6858, lon: 139.7514 },
               { name: 'Sydney', country: 'AU', lat: -33.8688, lon: 151.2093 },
-            ].map((city) => (
+            ].map(city => (
               <Button
                 key={`${city.name}-${city.country}`}
                 variant={
@@ -243,25 +241,27 @@ export default function LocationSearch({
                     : 'outline'
                 }
                 size="sm"
-                onClick={() => handleLocationSelect({
-                  id: `quick_${city.name}_${city.country}`,
-                  name: city.name,
-                  lat: city.lat,
-                  lon: city.lon,
-                  country: city.country,
-                  isDefault: false,
-                  isCurrent: false,
-                  notifications: {
-                    enabled: false,
-                    rainAlerts: false,
-                    temperatureAlerts: false,
-                    severeWeatherAlerts: false,
-                    dailySummary: false,
-                    temperatureThresholds: { high: 30, low: 0 }
-                  },
-                  addedAt: Date.now(),
-                  lastAccessed: Date.now()
-                })}
+                onClick={() =>
+                  handleLocationSelect({
+                    id: `quick_${city.name}_${city.country}`,
+                    name: city.name,
+                    lat: city.lat,
+                    lon: city.lon,
+                    country: city.country,
+                    isDefault: false,
+                    isCurrent: false,
+                    notifications: {
+                      enabled: false,
+                      rainAlerts: false,
+                      temperatureAlerts: false,
+                      severeWeatherAlerts: false,
+                      dailySummary: false,
+                      temperatureThresholds: { high: 30, low: 0 },
+                    },
+                    addedAt: Date.now(),
+                    lastAccessed: Date.now(),
+                  })
+                }
               >
                 {city.name}, {city.country}
               </Button>

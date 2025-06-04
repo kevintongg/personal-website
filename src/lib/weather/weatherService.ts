@@ -8,7 +8,7 @@ import type {
   WeatherAlert,
   WeatherDataSource,
   WeatherRecommendation,
-  WeatherTrend
+  WeatherTrend,
 } from './types';
 
 class WeatherService {
@@ -23,25 +23,38 @@ class WeatherService {
       priority: 1,
       apiKey: this.API_KEY,
       endpoints: {
-        current: 'https://api.openweathermap.org/data/2.5/weather',
+        current: 'https://api.openweathermap.org/data/3.0/onecall', // Primary: OneCall 3.0
         forecast: 'https://api.openweathermap.org/data/3.0/onecall',
         alerts: 'https://api.openweathermap.org/data/3.0/onecall',
-        airQuality: 'https://api.openweathermap.org/data/2.5/air_pollution',
-        historical: 'https://api.openweathermap.org/data/3.0/onecall/timemachine'
+        airQuality: 'https://api.openweathermap.org/data/2.5/air_pollution', // Keep 2.5 (free)
+        historical: 'https://api.openweathermap.org/data/3.0/onecall/timemachine',
       },
-      rateLimit: { requests: 1000, period: 3600 },
-      reliability: 0.95
-    }
+      rateLimit: { requests: 1000, period: 86400 }, // 1000 calls per day (24 hours)
+      reliability: 0.95,
+    },
   ];
 
   // Enhanced weather icon mapping with fallbacks
   private getWeatherIcon = (iconCode: string, description: string): string => {
     const iconMap: { [key: string]: string } = {
-      '01d': '☀️', '01n': '🌙', '02d': '⛅', '02n': '☁️',
-      '03d': '☁️', '03n': '☁️', '04d': '☁️', '04n': '☁️',
-      '09d': '🌧️', '09n': '🌧️', '10d': '🌦️', '10n': '🌧️',
-      '11d': '⛈️', '11n': '⛈️', '13d': '❄️', '13n': '❄️',
-      '50d': '🌫️', '50n': '🌫️',
+      '01d': '☀️',
+      '01n': '🌙',
+      '02d': '⛅',
+      '02n': '☁️',
+      '03d': '☁️',
+      '03n': '☁️',
+      '04d': '☁️',
+      '04n': '☁️',
+      '09d': '🌧️',
+      '09n': '🌧️',
+      '10d': '🌦️',
+      '10n': '🌧️',
+      '11d': '⛈️',
+      '11n': '⛈️',
+      '13d': '❄️',
+      '13n': '❄️',
+      '50d': '🌫️',
+      '50n': '🌫️',
     };
 
     if (iconMap[iconCode]) return iconMap[iconCode];
@@ -81,14 +94,14 @@ class WeatherService {
       locationId: key,
       timestamp: Date.now(),
       expiresAt: Date.now() + this.CACHE_DURATION,
-      source: 'OpenWeatherMap'
+      source: 'OpenWeatherMap',
     };
 
     this.cache.set(key, {
       ...existing,
       ...data,
       timestamp: Date.now(),
-      expiresAt: Date.now() + this.CACHE_DURATION
+      expiresAt: Date.now() + this.CACHE_DURATION,
     });
   }
 
@@ -96,7 +109,7 @@ class WeatherService {
   private calculateDewPoint(temp: number, humidity: number): number {
     const a = 17.27;
     const b = 237.7;
-    const alpha = ((a * temp) / (b + temp)) + Math.log(humidity / 100);
+    const alpha = (a * temp) / (b + temp) + Math.log(humidity / 100);
     return (b * alpha) / (a - alpha);
   }
 
@@ -106,15 +119,16 @@ class WeatherService {
     const T = temp;
     const R = humidity;
 
-    const HI = -8.78469475556 +
-             1.61139411 * T +
-             2.33854883889 * R +
-             -0.14611605 * T * R +
-             -0.012308094 * T * T +
-             -0.0164248277778 * R * R +
-             0.002211732 * T * T * R +
-             0.00072546 * T * R * R +
-             -0.000003582 * T * T * R * R;
+    const HI =
+      -8.78469475556 +
+      1.61139411 * T +
+      2.33854883889 * R +
+      -0.14611605 * T * R +
+      -0.012308094 * T * T +
+      -0.0164248277778 * R * R +
+      0.002211732 * T * T * R +
+      0.00072546 * T * R * R +
+      -0.000003582 * T * T * R * R;
 
     return Math.round(HI);
   }
@@ -126,7 +140,10 @@ class WeatherService {
   }
 
   // Fetch comprehensive weather data using OneCall 3.0 API
-  async fetchWeatherData(lat: number, lon: number): Promise<{
+  async fetchWeatherData(
+    lat: number,
+    lon: number
+  ): Promise<{
     current: CurrentWeather | null;
     hourly: HourlyForecastItem[];
     daily: DailyForecastItem[];
@@ -142,7 +159,7 @@ class WeatherService {
         hourly: cached.hourly,
         daily: cached.daily,
         alerts: cached.alerts || [],
-        airQuality: cached.airQuality || null
+        airQuality: cached.airQuality || null,
       };
     }
 
@@ -155,7 +172,10 @@ class WeatherService {
   }
 
   // Fetch data using OneCall 3.0 API
-  private async fetchOneCallWeatherData(lat: number, lon: number): Promise<{
+  private async fetchOneCallWeatherData(
+    lat: number,
+    lon: number
+  ): Promise<{
     current: CurrentWeather | null;
     hourly: HourlyForecastItem[];
     daily: DailyForecastItem[];
@@ -190,7 +210,10 @@ class WeatherService {
         visibility: oneCallData.current.visibility / 1000, // Convert m to km
         uvIndex: oneCallData.current.uvi || 0, // Now we have UV index!
         description: oneCallData.current.weather[0].description,
-        icon: this.getWeatherIcon(oneCallData.current.weather[0].icon, oneCallData.current.weather[0].description),
+        icon: this.getWeatherIcon(
+          oneCallData.current.weather[0].icon,
+          oneCallData.current.weather[0].description
+        ),
         dewPoint: Math.round(oneCallData.current.dew_point),
         cloudiness: oneCallData.current.clouds,
         // Store wind speed in m/s and convert for display later
@@ -199,7 +222,7 @@ class WeatherService {
         windGust: oneCallData.current.wind_gust || undefined,
         sunrise: oneCallData.current.sunrise,
         sunset: oneCallData.current.sunset,
-        timezone: oneCallData.timezone
+        timezone: oneCallData.timezone,
       };
 
       // Process hourly forecast (48 hours available in OneCall 3.0)
@@ -218,7 +241,7 @@ class WeatherService {
         cloudiness: hour.clouds,
         precipitation: hour.rain ? hour.rain['1h'] || 0 : hour.snow ? hour.snow['1h'] || 0 : 0,
         precipitationType: this.determinePrecipitationType(hour.temp),
-        visibility: hour.visibility ? hour.visibility / 1000 : 10
+        visibility: hour.visibility ? hour.visibility / 1000 : 10,
       }));
 
       // Process daily forecast (8 days available in OneCall 3.0)
@@ -243,20 +266,22 @@ class WeatherService {
         precipitationType: this.determinePrecipitationType(day.temp.day),
         sunrise: day.sunrise,
         sunset: day.sunset,
-        moonPhase: day.moon_phase
+        moonPhase: day.moon_phase,
       }));
 
       // Process weather alerts
-      const alerts: WeatherAlert[] = (oneCallData.alerts || []).map((alert: any, index: number) => ({
-        id: `alert_${index}_${alert.start}`,
-        event: alert.event,
-        description: alert.description,
-        severity: this.mapAlertSeverity(alert.event),
-        start: alert.start,
-        end: alert.end,
-        areas: alert.tags || [],
-        tags: alert.tags || []
-      }));
+      const alerts: WeatherAlert[] = (oneCallData.alerts || []).map(
+        (alert: any, index: number) => ({
+          id: `alert_${index}_${alert.start}`,
+          event: alert.event,
+          description: alert.description,
+          severity: this.mapAlertSeverity(alert.event),
+          start: alert.start,
+          end: alert.end,
+          areas: alert.tags || [],
+          tags: alert.tags || [],
+        })
+      );
 
       // Cache the data
       const cacheKey = this.getCacheKey(lat, lon, 'comprehensive');
@@ -265,7 +290,7 @@ class WeatherService {
         hourly,
         daily,
         alerts,
-        airQuality: airQuality || undefined
+        airQuality: airQuality || undefined,
       });
 
       return {
@@ -273,9 +298,8 @@ class WeatherService {
         hourly,
         daily,
         alerts,
-        airQuality
+        airQuality,
       };
-
     } catch {
       // Fallback to basic weather data if OneCall fails
       return this.fetchBasicWeatherData(lat, lon);
@@ -300,7 +324,7 @@ class WeatherService {
         2: 'fair',
         3: 'moderate',
         4: 'poor',
-        5: 'very_poor'
+        5: 'very_poor',
       } as const;
 
       const healthRecommendations = this.getHealthRecommendations(aqi);
@@ -315,9 +339,8 @@ class WeatherService {
         so2: components.so2,
         nh3: components.nh3,
         quality: qualityMap[aqi as keyof typeof qualityMap] || 'moderate',
-        healthRecommendations
+        healthRecommendations,
       };
-
     } catch {
       // Error fetching air quality data
       return null;
@@ -325,7 +348,10 @@ class WeatherService {
   }
 
   // Fetch basic weather data (fallback)
-  private async fetchBasicWeatherData(lat: number, lon: number): Promise<{
+  private async fetchBasicWeatherData(
+    lat: number,
+    lon: number
+  ): Promise<{
     current: CurrentWeather | null;
     hourly: HourlyForecastItem[];
     daily: DailyForecastItem[];
@@ -335,8 +361,12 @@ class WeatherService {
     try {
       // Fetch current weather and 5-day forecast in parallel
       const [currentResponse, forecastResponse] = await Promise.all([
-        fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${this.API_KEY}&units=metric`),
-        fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${this.API_KEY}&units=metric`)
+        fetch(
+          `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${this.API_KEY}&units=metric`
+        ),
+        fetch(
+          `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${this.API_KEY}&units=metric`
+        ),
       ]);
 
       if (!currentResponse.ok) {
@@ -365,7 +395,7 @@ class WeatherService {
         icon: currentData.weather[0].icon,
         sunrise: currentData.sys.sunrise,
         sunset: currentData.sys.sunset,
-        timezone: currentData.timezone // UTC offset in seconds
+        timezone: currentData.timezone, // UTC offset in seconds
       };
 
       let hourly: HourlyForecastItem[] = [];
@@ -390,7 +420,7 @@ class WeatherService {
           humidity: item.main.humidity,
           uvIndex: 0, // Not available in basic forecast API
           cloudiness: item.clouds.all,
-          visibility: item.visibility ? item.visibility / 1000 : 10
+          visibility: item.visibility ? item.visibility / 1000 : 10,
         }));
 
         // Group forecast by day for daily forecast
@@ -416,10 +446,11 @@ class WeatherService {
           const temps = items.map(item => item.main.temp);
           const maxTemp = Math.max(...temps);
           const minTemp = Math.min(...temps);
-          const midday = items.find(item => {
-            const hour = new Date(item.dt * 1000).getHours();
-            return hour >= 12 && hour <= 15;
-          }) || items[Math.floor(items.length / 2)];
+          const midday =
+            items.find(item => {
+              const hour = new Date(item.dt * 1000).getHours();
+              return hour >= 12 && hour <= 15;
+            }) || items[Math.floor(items.length / 2)];
 
           return {
             date: items[0].dt,
@@ -441,7 +472,7 @@ class WeatherService {
             cloudiness: midday.clouds.all,
             sunrise: 0, // Would need additional API call
             sunset: 0, // Would need additional API call
-            moonPhase: 0 // Not available in basic forecast API
+            moonPhase: 0, // Not available in basic forecast API
           };
         });
       }
@@ -461,7 +492,7 @@ class WeatherService {
         hourly,
         daily,
         alerts: [], // No alerts in basic API
-        airQuality: airQuality || undefined
+        airQuality: airQuality || undefined,
       });
 
       return {
@@ -469,9 +500,8 @@ class WeatherService {
         hourly,
         daily,
         alerts: [], // Weather alerts not available in basic API
-        airQuality
+        airQuality,
       };
-
     } catch {
       // Error fetching basic weather data
       return {
@@ -479,7 +509,7 @@ class WeatherService {
         hourly: [],
         daily: [],
         alerts: [],
-        airQuality: null
+        airQuality: null,
       };
     }
   }
@@ -505,7 +535,10 @@ class WeatherService {
   }
 
   // Generate weather recommendations
-  generateRecommendations(current: CurrentWeather, hourly: HourlyForecastItem[]): WeatherRecommendation[] {
+  generateRecommendations(
+    current: CurrentWeather,
+    hourly: HourlyForecastItem[]
+  ): WeatherRecommendation[] {
     const recommendations: WeatherRecommendation[] = [];
     const temp = current.temperature;
     // const humidity = current.humidity; // Available for future use
@@ -522,7 +555,7 @@ class WeatherService {
         reason: `It's ${temp}°C - very cold conditions`,
         confidence: 0.9,
         icon: '🧥',
-        timeRelevant: true
+        timeRelevant: true,
       });
     } else if (temp < 10) {
       recommendations.push({
@@ -533,7 +566,7 @@ class WeatherService {
         reason: `Cool temperature of ${temp}°C`,
         confidence: 0.8,
         icon: '🧥',
-        timeRelevant: true
+        timeRelevant: true,
       });
     } else if (temp > 30) {
       recommendations.push({
@@ -544,7 +577,7 @@ class WeatherService {
         reason: `Hot temperature of ${temp}°C`,
         confidence: 0.9,
         icon: '👕',
-        timeRelevant: true
+        timeRelevant: true,
       });
     }
 
@@ -559,7 +592,7 @@ class WeatherService {
         confidence: 0.8,
         icon: '☔',
         timeRelevant: true,
-        validUntil: Date.now() + 12 * 60 * 60 * 1000
+        validUntil: Date.now() + 12 * 60 * 60 * 1000,
       });
     }
 
@@ -573,7 +606,7 @@ class WeatherService {
         reason: `Very high UV index of ${uvIndex}`,
         confidence: 0.95,
         icon: '☀️',
-        timeRelevant: true
+        timeRelevant: true,
       });
     } else if (uvIndex >= 6) {
       recommendations.push({
@@ -584,7 +617,7 @@ class WeatherService {
         reason: `Moderate to high UV index of ${uvIndex}`,
         confidence: 0.8,
         icon: '🕶️',
-        timeRelevant: true
+        timeRelevant: true,
       });
     }
 
@@ -598,7 +631,7 @@ class WeatherService {
         reason: 'Ideal temperature and low wind with no rain expected',
         confidence: 0.9,
         icon: '🌞',
-        timeRelevant: true
+        timeRelevant: true,
       });
     }
 
@@ -627,20 +660,20 @@ class WeatherService {
       case 3:
         return [
           'Moderate air quality. Consider reducing outdoor exercise.',
-          'Sensitive groups should limit prolonged outdoor activities.'
+          'Sensitive groups should limit prolonged outdoor activities.',
         ];
       case 4:
         return [
           'Poor air quality. Limit outdoor activities.',
           'Use air purifiers indoors.',
-          'Sensitive individuals should stay indoors.'
+          'Sensitive individuals should stay indoors.',
         ];
       case 5:
         return [
           'Very poor air quality. Avoid outdoor activities.',
           'Keep windows closed.',
           'Use air purifiers and masks when going outside.',
-          'Vulnerable populations should stay indoors.'
+          'Vulnerable populations should stay indoors.',
         ];
       default:
         return ['Monitor air quality conditions.'];
@@ -677,12 +710,11 @@ class WeatherService {
           temperatureAlerts: false,
           severeWeatherAlerts: false,
           dailySummary: false,
-          temperatureThresholds: { high: 30, low: 0 }
+          temperatureThresholds: { high: 30, low: 0 },
         },
         addedAt: Date.now(),
-        lastAccessed: Date.now()
+        lastAccessed: Date.now(),
       }));
-
     } catch {
       // Error searching locations
       return [];
@@ -699,8 +731,8 @@ class WeatherService {
         trend: 'stable',
         change: 0.5,
         period: '24h',
-        significance: 'low'
-      }
+        significance: 'low',
+      },
     ];
   }
 

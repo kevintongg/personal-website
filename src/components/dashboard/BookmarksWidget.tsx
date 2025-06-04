@@ -125,15 +125,16 @@ export function BookmarksWidget() {
               stroke="currentColor"
               viewBox="0 0 24 24"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"
+              />
             </svg>
             Bookmarks
           </div>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setShowAddForm(!showAddForm)}
-          >
+          <Button variant="outline" size="sm" onClick={() => setShowAddForm(!showAddForm)}>
             {showAddForm ? 'Cancel' : 'Add'}
           </Button>
         </CardTitle>
@@ -141,22 +142,22 @@ export function BookmarksWidget() {
       <CardContent className="space-y-4">
         {/* Add bookmark form */}
         {showAddForm && (
-          <div className="space-y-3 p-3 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800">
+          <div className="space-y-3 rounded-lg border border-gray-200 bg-gray-50 p-3 dark:border-gray-700 dark:bg-gray-800">
             <input
               type="text"
               value={newBookmark.title}
-              onChange={(e) => setNewBookmark({ ...newBookmark, title: e.target.value })}
+              onChange={e => setNewBookmark({ ...newBookmark, title: e.target.value })}
               onKeyPress={handleKeyPress}
               placeholder="Bookmark title..."
-              className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md bg-white dark:bg-gray-900 dark:border-gray-600 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+              className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:border-transparent focus:ring-2 focus:ring-orange-500 focus:outline-none dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100"
             />
             <input
               type="text"
               value={newBookmark.url}
-              onChange={(e) => setNewBookmark({ ...newBookmark, url: e.target.value })}
+              onChange={e => setNewBookmark({ ...newBookmark, url: e.target.value })}
               onKeyPress={handleKeyPress}
               placeholder="URL (e.g., example.com)..."
-              className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md bg-white dark:bg-gray-900 dark:border-gray-600 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+              className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:border-transparent focus:ring-2 focus:ring-orange-500 focus:outline-none dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100"
             />
             <div className="flex gap-2">
               <Button onClick={addBookmark} size="sm" className="flex-1">
@@ -167,11 +168,11 @@ export function BookmarksWidget() {
         )}
 
         {/* Bookmarks list */}
-        <div className="grid grid-cols-2 gap-3 max-h-60 overflow-y-auto">
-          {bookmarks.map((bookmark) => (
+        <div className="grid max-h-60 grid-cols-2 gap-3 overflow-y-auto">
+          {bookmarks.map(bookmark => (
             <div
               key={bookmark.id}
-              className="group relative p-3 border border-gray-200 dark:border-gray-700 rounded-lg hover:shadow-md transition-shadow bg-white dark:bg-gray-900"
+              className="group relative rounded-lg border border-gray-200 bg-white p-3 transition-shadow hover:shadow-md dark:border-gray-700 dark:bg-gray-900"
             >
               <a
                 href={bookmark.url}
@@ -183,29 +184,34 @@ export function BookmarksWidget() {
                   <img
                     src={bookmark.favicon}
                     alt=""
-                    className="w-4 h-4 flex-shrink-0"
-                    onError={(e) => {
+                    className="h-4 w-4 flex-shrink-0"
+                    onError={e => {
                       const target = e.target as HTMLImageElement;
                       target.style.display = 'none';
                     }}
                   />
-                  <h3 className="font-medium text-sm text-gray-900 dark:text-gray-100 truncate">
+                  <h3 className="truncate text-sm font-medium text-gray-900 dark:text-gray-100">
                     {bookmark.title}
                   </h3>
                 </div>
-                <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
+                <p className="truncate text-xs text-gray-500 dark:text-gray-400">
                   {getDomainFromUrl(bookmark.url)}
                 </p>
               </a>
               <button
-                onClick={(e) => {
+                onClick={e => {
                   e.preventDefault();
                   deleteBookmark(bookmark.id);
                 }}
-                className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
+                className="absolute top-2 right-2 text-red-500 opacity-0 transition-opacity group-hover:opacity-100 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
               >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
                 </svg>
               </button>
             </div>
@@ -213,7 +219,7 @@ export function BookmarksWidget() {
         </div>
 
         {bookmarks.length === 0 && (
-          <div className="text-center text-gray-500 dark:text-gray-400 py-8">
+          <div className="py-8 text-center text-gray-500 dark:text-gray-400">
             <p>No bookmarks yet. Add your favorite links!</p>
           </div>
         )}

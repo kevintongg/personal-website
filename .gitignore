@@ -29,6 +29,13 @@ dist-ssr
 .env.test
 .env.production
 
+# SSL certificates (local development)
+*.pem
+*.key
+*.crt
+*.cert
+localhost+*
+
 # Build output
 build/
 coverage/
@@ -59,3 +66,49 @@ coverage/
 **/public/sw.js.map
 **/public/workbox-*.js.map
 **/public/worker-*.js.map
+
+# IDE and OS files
+.vscode/settings.json
+.vscode/launch.json
+.vscode/tasks.json
+.vscode/*.code-workspace
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Package manager locks (optional - you might want to commit pnpm-lock.yaml)
+# pnpm-lock.yaml
+# yarn.lock
+# package-lock.json
+
+# Runtime and debugging
+*.pid
+*.seed
+*.pid.lock
+
+# Performance monitoring
+.vercel
+
+# Local development files
+.env*.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Temporary files and backups
+*.tmp
+*.bak
+*.backup
+*.orig
+
+# Storybook (if you add it later)
+/storybook-static
+
+# Bundle analyzer
+/analyze
+
+# Cypress (if you add e2e testing)
+/cypress/videos/
+/cypress/screenshots/
+/cypress/downloads/

@@ -38,7 +38,7 @@ export function ClockWidget() {
       hour: '2-digit',
       minute: '2-digit',
       second: '2-digit',
-      timeZone: 'UTC'
+      timeZone: 'UTC',
     });
   };
 
@@ -76,12 +76,7 @@ export function ClockWidget() {
             </svg>
             Current Time
           </div>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={toggleTimeFormat}
-            className="text-xs"
-          >
+          <Button variant="outline" size="sm" onClick={toggleTimeFormat} className="text-xs">
             {is24Hour ? '12H' : '24H'}
           </Button>
         </CardTitle>
@@ -91,20 +86,20 @@ export function ClockWidget() {
           <div className="text-4xl font-bold text-gray-900 dark:text-gray-100">
             {formatTime(currentTime)}
           </div>
-          <div className="text-lg text-gray-600 dark:text-gray-400 mt-2">
+          <div className="mt-2 text-lg text-gray-600 dark:text-gray-400">
             {formatDate(currentTime)}
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-4 pt-4 border-t dark:border-gray-700">
+        <div className="grid grid-cols-2 gap-4 border-t pt-4 dark:border-gray-700">
           <div className="text-center">
             <div className="text-sm text-gray-500 dark:text-gray-400">UTC</div>
-            <div className="text-sm font-medium text-gray-900 dark:text-gray-100 mt-1">
+            <div className="mt-1 text-sm font-medium text-gray-900 dark:text-gray-100">
               {formatUTCTime(currentTime)}
             </div>
           </div>
           <div className="text-center">
             <div className="text-sm text-gray-500 dark:text-gray-400">Timezone</div>
-            <div className="text-sm font-medium text-gray-900 dark:text-gray-100 mt-1">
+            <div className="mt-1 text-sm font-medium text-gray-900 dark:text-gray-100">
               {formatTimezone(Intl.DateTimeFormat().resolvedOptions().timeZone)}
             </div>
           </div>

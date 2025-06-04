@@ -10,18 +10,18 @@ export function DashboardPreview() {
   }, []);
 
   return (
-    <div className="h-48 w-full bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 p-3 overflow-hidden">
-      <div className="h-full w-full bg-white dark:bg-gray-950 rounded-lg shadow-sm border dark:border-gray-800 p-2">
+    <div className="h-48 w-full overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 p-3 dark:from-gray-900 dark:to-gray-800">
+      <div className="h-full w-full rounded-lg border bg-white p-2 shadow-sm dark:border-gray-800 dark:bg-gray-950">
         {/* Mini Dashboard Header */}
-        <div className="flex items-center justify-between mb-2 pb-1 border-b dark:border-gray-800">
-          <div className="h-2 w-16 bg-gray-200 dark:bg-gray-700 rounded"></div>
-          <div className="h-2 w-2 bg-blue-500 rounded-full"></div>
+        <div className="mb-2 flex items-center justify-between border-b pb-1 dark:border-gray-800">
+          <div className="h-2 w-16 rounded bg-gray-200 dark:bg-gray-700"></div>
+          <div className="h-2 w-2 rounded-full bg-blue-500"></div>
         </div>
 
         {/* Mini Dashboard Grid */}
-        <div className="grid grid-cols-4 gap-1 h-full">
+        <div className="grid h-full grid-cols-4 gap-1">
           {/* Clock Widget Preview */}
-          <div className="col-span-2 bg-blue-50 dark:bg-blue-950/30 rounded p-1 flex flex-col items-center justify-center">
+          <div className="col-span-2 flex flex-col items-center justify-center rounded bg-blue-50 p-1 dark:bg-blue-950/30">
             <div className="text-xs font-bold text-blue-700 dark:text-blue-300">
               {time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
             </div>
@@ -31,33 +31,33 @@ export function DashboardPreview() {
           </div>
 
           {/* Weather Widget Preview */}
-          <div className="bg-orange-50 dark:bg-orange-950/30 rounded p-1 flex flex-col items-center justify-center">
+          <div className="flex flex-col items-center justify-center rounded bg-orange-50 p-1 dark:bg-orange-950/30">
             <div className="text-xs">☀️</div>
             <div className="text-[8px] text-orange-700 dark:text-orange-300">72°F</div>
           </div>
 
           {/* Quote Widget Preview */}
-          <div className="bg-purple-50 dark:bg-purple-950/30 rounded p-1 flex items-center justify-center">
+          <div className="flex items-center justify-center rounded bg-purple-50 p-1 dark:bg-purple-950/30">
             <div className="text-xs">💭</div>
           </div>
 
           {/* Todo Widget Preview */}
-          <div className="col-span-2 bg-green-50 dark:bg-green-950/30 rounded p-1">
-            <div className="text-[8px] text-green-700 dark:text-green-300 mb-1">Todo</div>
+          <div className="col-span-2 rounded bg-green-50 p-1 dark:bg-green-950/30">
+            <div className="mb-1 text-[8px] text-green-700 dark:text-green-300">Todo</div>
             <div className="space-y-0.5">
-              <div className="h-1 w-full bg-green-200 dark:bg-green-800 rounded"></div>
-              <div className="h-1 w-3/4 bg-green-200 dark:bg-green-800 rounded"></div>
-              <div className="h-1 w-1/2 bg-green-200 dark:bg-green-800 rounded"></div>
+              <div className="h-1 w-full rounded bg-green-200 dark:bg-green-800"></div>
+              <div className="h-1 w-3/4 rounded bg-green-200 dark:bg-green-800"></div>
+              <div className="h-1 w-1/2 rounded bg-green-200 dark:bg-green-800"></div>
             </div>
           </div>
 
           {/* Bookmarks Widget Preview */}
-          <div className="col-span-2 bg-indigo-50 dark:bg-indigo-950/30 rounded p-1">
-            <div className="text-[8px] text-indigo-700 dark:text-indigo-300 mb-1">Links</div>
+          <div className="col-span-2 rounded bg-indigo-50 p-1 dark:bg-indigo-950/30">
+            <div className="mb-1 text-[8px] text-indigo-700 dark:text-indigo-300">Links</div>
             <div className="grid grid-cols-3 gap-0.5">
-              <div className="h-2 w-2 bg-indigo-200 dark:bg-indigo-800 rounded-sm"></div>
-              <div className="h-2 w-2 bg-indigo-200 dark:bg-indigo-800 rounded-sm"></div>
-              <div className="h-2 w-2 bg-indigo-200 dark:bg-indigo-800 rounded-sm"></div>
+              <div className="h-2 w-2 rounded-sm bg-indigo-200 dark:bg-indigo-800"></div>
+              <div className="h-2 w-2 rounded-sm bg-indigo-200 dark:bg-indigo-800"></div>
+              <div className="h-2 w-2 rounded-sm bg-indigo-200 dark:bg-indigo-800"></div>
             </div>
           </div>
         </div>
@@ -73,36 +73,38 @@ export function ECommercePreview() {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentProduct((prev) => (prev + 1) % products.length);
+      setCurrentProduct(prev => (prev + 1) % products.length);
     }, 2000);
     return () => clearInterval(timer);
   }, []);
 
   return (
-    <div className="h-48 w-full bg-gradient-to-br from-blue-500 to-purple-600 p-3 overflow-hidden">
-      <div className="h-full w-full bg-white dark:bg-gray-950 rounded-lg shadow-sm p-2">
+    <div className="h-48 w-full overflow-hidden bg-gradient-to-br from-blue-500 to-purple-600 p-3">
+      <div className="h-full w-full rounded-lg bg-white p-2 shadow-sm dark:bg-gray-950">
         {/* Mini Header */}
-        <div className="flex items-center justify-between mb-2 pb-1 border-b dark:border-gray-800">
-          <div className="h-2 w-12 bg-blue-500 rounded"></div>
+        <div className="mb-2 flex items-center justify-between border-b pb-1 dark:border-gray-800">
+          <div className="h-2 w-12 rounded bg-blue-500"></div>
           <div className="flex gap-1">
-            <div className="h-2 w-2 bg-gray-300 dark:bg-gray-600 rounded-full"></div>
-            <div className="h-2 w-2 bg-gray-300 dark:bg-gray-600 rounded-full"></div>
-            <div className="h-2 w-2 bg-blue-500 rounded-full"></div>
+            <div className="h-2 w-2 rounded-full bg-gray-300 dark:bg-gray-600"></div>
+            <div className="h-2 w-2 rounded-full bg-gray-300 dark:bg-gray-600"></div>
+            <div className="h-2 w-2 rounded-full bg-blue-500"></div>
           </div>
         </div>
 
         {/* Product Grid */}
-        <div className="grid grid-cols-3 gap-1 h-full">
+        <div className="grid h-full grid-cols-3 gap-1">
           {products.map((product, index) => (
             <div
               key={index}
-              className={`bg-gray-50 dark:bg-gray-900 rounded p-1 flex flex-col items-center justify-center transition-all duration-300 ${
-                index === currentProduct ? 'ring-2 ring-blue-500 bg-blue-50 dark:bg-blue-950/50' : ''
+              className={`flex flex-col items-center justify-center rounded bg-gray-50 p-1 transition-all duration-300 dark:bg-gray-900 ${
+                index === currentProduct
+                  ? 'bg-blue-50 ring-2 ring-blue-500 dark:bg-blue-950/50'
+                  : ''
               }`}
             >
-              <div className="text-lg mb-1">{product}</div>
-              <div className="h-1 w-8 bg-gray-300 dark:bg-gray-600 rounded"></div>
-              <div className="h-1 w-6 bg-blue-500 rounded mt-0.5"></div>
+              <div className="mb-1 text-lg">{product}</div>
+              <div className="h-1 w-8 rounded bg-gray-300 dark:bg-gray-600"></div>
+              <div className="mt-0.5 h-1 w-6 rounded bg-blue-500"></div>
             </div>
           ))}
         </div>
@@ -121,53 +123,63 @@ export function TaskManagementPreview() {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setTasks(prev => prev.map(task =>
-        Math.random() > 0.7 ? { ...task, completed: !task.completed } : task
-      ));
+      setTasks(prev =>
+        prev.map(task => (Math.random() > 0.7 ? { ...task, completed: !task.completed } : task))
+      );
     }, 3000);
     return () => clearInterval(timer);
   }, []);
 
   return (
-    <div className="h-48 w-full bg-gradient-to-br from-green-500 to-teal-600 p-3 overflow-hidden">
-      <div className="h-full w-full bg-white dark:bg-gray-950 rounded-lg shadow-sm p-2">
+    <div className="h-48 w-full overflow-hidden bg-gradient-to-br from-green-500 to-teal-600 p-3">
+      <div className="h-full w-full rounded-lg bg-white p-2 shadow-sm dark:bg-gray-950">
         {/* Mini Header */}
-        <div className="flex items-center justify-between mb-2 pb-1 border-b dark:border-gray-800">
-          <div className="h-2 w-16 bg-green-500 rounded"></div>
+        <div className="mb-2 flex items-center justify-between border-b pb-1 dark:border-gray-800">
+          <div className="h-2 w-16 rounded bg-green-500"></div>
           <div className="flex gap-1">
-            <div className="h-2 w-8 bg-gray-200 dark:bg-gray-700 rounded"></div>
-            <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+            <div className="h-2 w-8 rounded bg-gray-200 dark:bg-gray-700"></div>
+            <div className="h-2 w-2 rounded-full bg-green-500"></div>
           </div>
         </div>
 
         {/* Task Columns */}
-        <div className="grid grid-cols-3 gap-1 h-full">
-          <div className="bg-gray-50 dark:bg-gray-900 rounded p-1">
-            <div className="text-[8px] text-gray-600 dark:text-gray-400 mb-1">To Do</div>
+        <div className="grid h-full grid-cols-3 gap-1">
+          <div className="rounded bg-gray-50 p-1 dark:bg-gray-900">
+            <div className="mb-1 text-[8px] text-gray-600 dark:text-gray-400">To Do</div>
             <div className="space-y-1">
-              {tasks.filter(t => !t.completed).map((task, index) => (
-                <div key={task.id} className="h-3 bg-red-100 dark:bg-red-950/50 rounded border-l-2 border-red-400 px-1 flex items-center">
-                  <div className="h-1 w-full bg-red-300 dark:bg-red-700 rounded"></div>
-                </div>
-              ))}
+              {tasks
+                .filter(t => !t.completed)
+                .map((task, index) => (
+                  <div
+                    key={task.id}
+                    className="flex h-3 items-center rounded border-l-2 border-red-400 bg-red-100 px-1 dark:bg-red-950/50"
+                  >
+                    <div className="h-1 w-full rounded bg-red-300 dark:bg-red-700"></div>
+                  </div>
+                ))}
             </div>
           </div>
 
-          <div className="bg-gray-50 dark:bg-gray-900 rounded p-1">
-            <div className="text-[8px] text-gray-600 dark:text-gray-400 mb-1">Progress</div>
-            <div className="h-3 bg-yellow-100 dark:bg-yellow-950/50 rounded border-l-2 border-yellow-400 px-1 flex items-center">
-              <div className="h-1 w-3/4 bg-yellow-300 dark:bg-yellow-700 rounded"></div>
+          <div className="rounded bg-gray-50 p-1 dark:bg-gray-900">
+            <div className="mb-1 text-[8px] text-gray-600 dark:text-gray-400">Progress</div>
+            <div className="flex h-3 items-center rounded border-l-2 border-yellow-400 bg-yellow-100 px-1 dark:bg-yellow-950/50">
+              <div className="h-1 w-3/4 rounded bg-yellow-300 dark:bg-yellow-700"></div>
             </div>
           </div>
 
-          <div className="bg-gray-50 dark:bg-gray-900 rounded p-1">
-            <div className="text-[8px] text-gray-600 dark:text-gray-400 mb-1">Done</div>
+          <div className="rounded bg-gray-50 p-1 dark:bg-gray-900">
+            <div className="mb-1 text-[8px] text-gray-600 dark:text-gray-400">Done</div>
             <div className="space-y-1">
-              {tasks.filter(t => t.completed).map((task, index) => (
-                <div key={task.id} className="h-3 bg-green-100 dark:bg-green-950/50 rounded border-l-2 border-green-400 px-1 flex items-center">
-                  <div className="h-1 w-full bg-green-300 dark:bg-green-700 rounded"></div>
-                </div>
-              ))}
+              {tasks
+                .filter(t => t.completed)
+                .map((task, index) => (
+                  <div
+                    key={task.id}
+                    className="flex h-3 items-center rounded border-l-2 border-green-400 bg-green-100 px-1 dark:bg-green-950/50"
+                  >
+                    <div className="h-1 w-full rounded bg-green-300 dark:bg-green-700"></div>
+                  </div>
+                ))}
             </div>
           </div>
         </div>
@@ -185,42 +197,41 @@ export function WeatherDashboardPreview() {
     const timer = setInterval(() => {
       setWeatherData({
         temp: Math.floor(Math.random() * 20) + 65,
-        condition: ['☀️', '⛅', '🌧️', '❄️'][Math.floor(Math.random() * 4)]
+        condition: ['☀️', '⛅', '🌧️', '❄️'][Math.floor(Math.random() * 4)],
       });
-      setChartData(prev => [
-        ...prev.slice(1),
-        Math.floor(Math.random() * 40) + 50
-      ]);
+      setChartData(prev => [...prev.slice(1), Math.floor(Math.random() * 40) + 50]);
     }, 2500);
     return () => clearInterval(timer);
   }, []);
 
   return (
-    <div className="h-48 w-full bg-gradient-to-br from-orange-500 to-red-600 p-3 overflow-hidden">
-      <div className="h-full w-full bg-white dark:bg-gray-950 rounded-lg shadow-sm p-2">
+    <div className="h-48 w-full overflow-hidden bg-gradient-to-br from-orange-500 to-red-600 p-3">
+      <div className="h-full w-full rounded-lg bg-white p-2 shadow-sm dark:bg-gray-950">
         {/* Mini Header */}
-        <div className="flex items-center justify-between mb-2 pb-1 border-b dark:border-gray-800">
-          <div className="h-2 w-14 bg-orange-500 rounded"></div>
+        <div className="mb-2 flex items-center justify-between border-b pb-1 dark:border-gray-800">
+          <div className="h-2 w-14 rounded bg-orange-500"></div>
           <div className="text-xs">{weatherData.condition}</div>
         </div>
 
         {/* Weather Content */}
-        <div className="grid grid-cols-2 gap-2 h-full">
+        <div className="grid h-full grid-cols-2 gap-2">
           {/* Current Weather */}
-          <div className="bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-950/20 dark:to-orange-900/20 rounded p-2 flex flex-col items-center justify-center">
-            <div className="text-2xl mb-1">{weatherData.condition}</div>
-            <div className="text-lg font-bold text-orange-700 dark:text-orange-300">{weatherData.temp}°</div>
+          <div className="flex flex-col items-center justify-center rounded bg-gradient-to-br from-orange-50 to-orange-100 p-2 dark:from-orange-950/20 dark:to-orange-900/20">
+            <div className="mb-1 text-2xl">{weatherData.condition}</div>
+            <div className="text-lg font-bold text-orange-700 dark:text-orange-300">
+              {weatherData.temp}°
+            </div>
             <div className="text-[8px] text-orange-600 dark:text-orange-400">New York</div>
           </div>
 
           {/* Chart Preview */}
-          <div className="bg-gray-50 dark:bg-gray-900 rounded p-1">
-            <div className="text-[8px] text-gray-600 dark:text-gray-400 mb-1">7-Day Forecast</div>
-            <div className="flex items-end justify-between h-full pb-2">
+          <div className="rounded bg-gray-50 p-1 dark:bg-gray-900">
+            <div className="mb-1 text-[8px] text-gray-600 dark:text-gray-400">7-Day Forecast</div>
+            <div className="flex h-full items-end justify-between pb-2">
               {chartData.map((value, index) => (
                 <div
                   key={index}
-                  className="bg-gradient-to-t from-orange-400 to-orange-300 dark:from-orange-600 dark:to-orange-500 w-1 rounded-t transition-all duration-500"
+                  className="w-1 rounded-t bg-gradient-to-t from-orange-400 to-orange-300 transition-all duration-500 dark:from-orange-600 dark:to-orange-500"
                   style={{ height: `${(value / 100) * 100}%` }}
                 ></div>
               ))}

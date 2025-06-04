@@ -65,7 +65,8 @@ export function WeatherWidget() {
     if (lowerDesc.includes('cloud')) return '☁️';
     if (lowerDesc.includes('clear')) return iconCode.includes('n') ? '🌙' : '☀️';
     if (lowerDesc.includes('storm') || lowerDesc.includes('thunder')) return '⛈️';
-    if (lowerDesc.includes('fog') || lowerDesc.includes('mist') || lowerDesc.includes('haze')) return '🌫️';
+    if (lowerDesc.includes('fog') || lowerDesc.includes('mist') || lowerDesc.includes('haze'))
+      return '🌫️';
     if (lowerDesc.includes('wind')) return '💨';
 
     return '🌤️'; // default partly cloudy
@@ -110,7 +111,7 @@ export function WeatherWidget() {
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
-        (position) => {
+        position => {
           fetchWeather(position.coords.latitude, position.coords.longitude);
         },
         () => {
@@ -138,7 +139,7 @@ export function WeatherWidget() {
   const getDisplayTemperature = () => {
     if (!weather) return '';
     if (temperatureUnit === 'fahrenheit') {
-      return Math.round((weather.temperature * 9/5) + 32) + '°F';
+      return Math.round((weather.temperature * 9) / 5 + 32) + '°F';
     }
     return weather.temperature + '°C';
   };
@@ -178,23 +179,18 @@ export function WeatherWidget() {
                 variant="outline"
                 size="sm"
                 onClick={toggleTemperatureUnit}
-                className="text-xs px-2"
+                className="px-2 text-xs"
               >
                 {temperatureUnit === 'celsius' ? '°F' : '°C'}
               </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={toggleWindUnit}
-                className="text-xs px-2"
-              >
+              <Button variant="outline" size="sm" onClick={toggleWindUnit} className="px-2 text-xs">
                 {windUnit === 'kmh' ? 'mph' : 'km/h'}
               </Button>
             </div>
           </CardTitle>
         </CardHeader>
-        <CardContent className="flex items-center justify-center h-32">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 dark:border-blue-400"></div>
+        <CardContent className="flex h-32 items-center justify-center">
+          <div className="h-8 w-8 animate-spin rounded-full border-b-2 border-blue-600 dark:border-blue-400"></div>
         </CardContent>
       </Card>
     );
@@ -221,16 +217,11 @@ export function WeatherWidget() {
                 variant="outline"
                 size="sm"
                 onClick={toggleTemperatureUnit}
-                className="text-xs px-2"
+                className="px-2 text-xs"
               >
                 {temperatureUnit === 'celsius' ? '°F' : '°C'}
               </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={toggleWindUnit}
-                className="text-xs px-2"
-              >
+              <Button variant="outline" size="sm" onClick={toggleWindUnit} className="px-2 text-xs">
                 {windUnit === 'kmh' ? 'mph' : 'km/h'}
               </Button>
             </div>
@@ -268,16 +259,11 @@ export function WeatherWidget() {
               variant="outline"
               size="sm"
               onClick={toggleTemperatureUnit}
-              className="text-xs px-2"
+              className="px-2 text-xs"
             >
               {temperatureUnit === 'celsius' ? '°F' : '°C'}
             </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={toggleWindUnit}
-              className="text-xs px-2"
-            >
+            <Button variant="outline" size="sm" onClick={toggleWindUnit} className="px-2 text-xs">
               {windUnit === 'kmh' ? 'mph' : 'km/h'}
             </Button>
           </div>
@@ -289,7 +275,7 @@ export function WeatherWidget() {
             <div className="text-center">
               <div className="flex items-center justify-center gap-2">
                 <div
-                  className="w-12 h-12 flex items-center justify-center text-3xl"
+                  className="flex h-12 w-12 items-center justify-center text-3xl"
                   title={`Weather: ${weather.description} (Icon: ${weather.icon})`}
                 >
                   {getWeatherIcon(weather.icon, weather.description)}
@@ -298,23 +284,23 @@ export function WeatherWidget() {
                   {getDisplayTemperature()}
                 </div>
               </div>
-              <div className="text-sm text-gray-600 dark:text-gray-400 capitalize mt-2">
+              <div className="mt-2 text-sm text-gray-600 capitalize dark:text-gray-400">
                 {weather.description}
               </div>
-              <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+              <div className="mt-1 text-xs text-gray-500 dark:text-gray-400">
                 {weather.location}
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4 pt-4 border-t dark:border-gray-700">
+            <div className="grid grid-cols-2 gap-4 border-t pt-4 dark:border-gray-700">
               <div className="text-center">
                 <div className="text-sm text-gray-500 dark:text-gray-400">Humidity</div>
-                <div className="font-medium text-gray-900 dark:text-gray-100 mt-1">
+                <div className="mt-1 font-medium text-gray-900 dark:text-gray-100">
                   {weather.humidity}%
                 </div>
               </div>
               <div className="text-center">
                 <div className="text-sm text-gray-500 dark:text-gray-400">Wind</div>
-                <div className="font-medium text-gray-900 dark:text-gray-100 mt-1">
+                <div className="mt-1 font-medium text-gray-900 dark:text-gray-100">
                   {getDisplayWindSpeed()}
                 </div>
               </div>

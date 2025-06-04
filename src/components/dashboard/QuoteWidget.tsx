@@ -9,37 +9,37 @@ interface Quote {
 
 const fallbackQuotes: Quote[] = [
   {
-    text: "The only way to do great work is to love what you do.",
-    author: "Steve Jobs"
+    text: 'The only way to do great work is to love what you do.',
+    author: 'Steve Jobs',
   },
   {
-    text: "Innovation distinguishes between a leader and a follower.",
-    author: "Steve Jobs"
+    text: 'Innovation distinguishes between a leader and a follower.',
+    author: 'Steve Jobs',
   },
   {
     text: "Code is like humor. When you have to explain it, it's bad.",
-    author: "Cory House"
+    author: 'Cory House',
   },
   {
-    text: "First, solve the problem. Then, write the code.",
-    author: "John Johnson"
+    text: 'First, solve the problem. Then, write the code.',
+    author: 'John Johnson',
   },
   {
-    text: "Experience is the name everyone gives to their mistakes.",
-    author: "Oscar Wilde"
+    text: 'Experience is the name everyone gives to their mistakes.',
+    author: 'Oscar Wilde',
   },
   {
-    text: "The best time to plant a tree was 20 years ago. The second best time is now.",
-    author: "Chinese Proverb"
+    text: 'The best time to plant a tree was 20 years ago. The second best time is now.',
+    author: 'Chinese Proverb',
   },
   {
     text: "Your limitation—it's only your imagination.",
-    author: "Unknown"
+    author: 'Unknown',
   },
   {
-    text: "Great things never come from comfort zones.",
-    author: "Unknown"
-  }
+    text: 'Great things never come from comfort zones.',
+    author: 'Unknown',
+  },
 ];
 
 export function QuoteWidget() {
@@ -60,7 +60,7 @@ export function QuoteWidget() {
         const data = await response.json();
         setQuote({
           text: data.content,
-          author: data.author
+          author: data.author,
         });
       } else {
         throw new Error('API unavailable');
@@ -115,13 +115,18 @@ export function QuoteWidget() {
               stroke="currentColor"
               viewBox="0 0 24 24"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"
+              />
             </svg>
             Daily Quote
           </CardTitle>
         </CardHeader>
-        <CardContent className="flex items-center justify-center h-32">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600 dark:border-purple-400"></div>
+        <CardContent className="flex h-32 items-center justify-center">
+          <div className="h-8 w-8 animate-spin rounded-full border-b-2 border-purple-600 dark:border-purple-400"></div>
         </CardContent>
       </Card>
     );
@@ -138,13 +143,23 @@ export function QuoteWidget() {
               stroke="currentColor"
               viewBox="0 0 24 24"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"
+              />
             </svg>
             Daily Quote
           </div>
           <Button variant="outline" size="sm" onClick={getNewQuote}>
             <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+              />
             </svg>
           </Button>
         </CardTitle>
@@ -160,7 +175,7 @@ export function QuoteWidget() {
               >
                 <path d="M10 8c-3.3 0-6 2.7-6 6v10h10V14H6c0-1.1.9-2 2-2h2V8zm12 0c-3.3 0-6 2.7-6 6v10h10V14h-8c0-1.1.9-2 2-2h2V8z" />
               </svg>
-              <p className="text-lg italic text-gray-900 dark:text-gray-100 leading-relaxed pl-6">
+              <p className="pl-6 text-lg leading-relaxed text-gray-900 italic dark:text-gray-100">
                 "{quote.text}"
               </p>
             </div>

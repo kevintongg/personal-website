@@ -46,7 +46,7 @@ export default function WeatherAlerts({ alerts }: WeatherAlertsProps) {
       day: 'numeric',
       hour: 'numeric',
       minute: '2-digit',
-      hour12: true
+      hour12: true,
     });
   };
 
@@ -55,27 +55,25 @@ export default function WeatherAlerts({ alerts }: WeatherAlertsProps) {
       <CardHeader>
         <CardTitle className="flex items-center justify-center gap-2 text-center">
           🚨 Weather Alerts
-          <span className="inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 rounded-full">
+          <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-red-500 text-xs font-bold text-white">
             {alerts.length}
           </span>
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
-        {alerts.map((alert) => (
+        {alerts.map(alert => (
           <Alert key={alert.id} className={`border-l-4 ${getSeverityColor(alert.severity)}`}>
             <div className="flex items-start gap-3">
-              <span className="text-xl mt-1">{getSeverityIcon(alert.severity)}</span>
-              <div className="flex-1 min-w-0">
-                <AlertTitle className="flex items-center gap-2 mb-2">
+              <span className="mt-1 text-xl">{getSeverityIcon(alert.severity)}</span>
+              <div className="min-w-0 flex-1">
+                <AlertTitle className="mb-2 flex items-center gap-2">
                   <span className="font-semibold">{alert.event}</span>
-                  <span className="inline-flex items-center px-2 py-1 text-xs font-medium rounded-full bg-opacity-20 bg-current">
+                  <span className="bg-opacity-20 inline-flex items-center rounded-full bg-current px-2 py-1 text-xs font-medium">
                     {alert.severity.toUpperCase()}
                   </span>
                 </AlertTitle>
-                <AlertDescription className="text-sm mb-3">
-                  {alert.description}
-                </AlertDescription>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs opacity-75">
+                <AlertDescription className="mb-3 text-sm">{alert.description}</AlertDescription>
+                <div className="grid grid-cols-1 gap-2 text-xs opacity-75 sm:grid-cols-2">
                   <div>
                     <strong>Starts:</strong> {formatDateTime(alert.start)}
                   </div>

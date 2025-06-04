@@ -62,20 +62,23 @@ export default function WeatherRecommendations({ recommendations }: WeatherRecom
   };
 
   // Group recommendations by category
-  const groupedRecommendations = recommendations.reduce((acc, rec) => {
-    if (!acc[rec.category]) {
-      acc[rec.category] = [];
-    }
-    acc[rec.category].push(rec);
-    return acc;
-  }, {} as Record<string, WeatherRecommendation[]>);
+  const groupedRecommendations = recommendations.reduce(
+    (acc, rec) => {
+      if (!acc[rec.category]) {
+        acc[rec.category] = [];
+      }
+      acc[rec.category].push(rec);
+      return acc;
+    },
+    {} as Record<string, WeatherRecommendation[]>
+  );
 
   return (
     <Card className="mb-8">
       <CardHeader>
         <CardTitle className="flex items-center justify-center gap-2 text-center">
           💡 Smart Recommendations
-          <span className="inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-blue-500 rounded-full">
+          <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-blue-500 text-xs font-bold text-white">
             {recommendations.length}
           </span>
         </CardTitle>
@@ -84,39 +87,36 @@ export default function WeatherRecommendations({ recommendations }: WeatherRecom
         {Object.entries(groupedRecommendations).map(([category, recs]) => (
           <div key={category} className="space-y-3">
             <div className="flex items-center gap-2">
-              <span className="text-lg">{getCategoryIcon(category as WeatherRecommendation['category'])}</span>
-              <h3 className="font-semibold text-gray-900 dark:text-gray-100 capitalize">
+              <span className="text-lg">
+                {getCategoryIcon(category as WeatherRecommendation['category'])}
+              </span>
+              <h3 className="font-semibold text-gray-900 capitalize dark:text-gray-100">
                 {category}
               </h3>
             </div>
             <div className="space-y-3">
-              {recs.map((rec) => (
-                <div
-                  key={rec.id}
-                  className="border rounded-lg p-4 bg-gray-50 dark:bg-gray-800/50"
-                >
-                  <div className="flex items-start justify-between mb-2">
+              {recs.map(rec => (
+                <div key={rec.id} className="rounded-lg border bg-gray-50 p-4 dark:bg-gray-800/50">
+                  <div className="mb-2 flex items-start justify-between">
                     <div className="flex items-center gap-2">
                       <span className="text-lg">{rec.icon}</span>
-                      <h4 className="font-medium text-gray-900 dark:text-gray-100">
-                        {rec.title}
-                      </h4>
+                      <h4 className="font-medium text-gray-900 dark:text-gray-100">{rec.title}</h4>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className={`inline-flex items-center px-2 py-1 text-xs font-medium rounded-full ${getCategoryColor(rec.category)}`}>
+                      <span
+                        className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ${getCategoryColor(rec.category)}`}
+                      >
                         {rec.category}
                       </span>
                       {rec.timeRelevant && (
-                        <span className="inline-flex items-center px-2 py-1 text-xs font-medium rounded-full bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300">
+                        <span className="inline-flex items-center rounded-full bg-orange-100 px-2 py-1 text-xs font-medium text-orange-700 dark:bg-orange-900/30 dark:text-orange-300">
                           Time Sensitive
                         </span>
                       )}
                     </div>
                   </div>
 
-                  <p className="text-sm text-gray-700 dark:text-gray-300 mb-2">
-                    {rec.suggestion}
-                  </p>
+                  <p className="mb-2 text-sm text-gray-700 dark:text-gray-300">{rec.suggestion}</p>
 
                   <div className="flex items-center justify-between text-xs text-gray-600 dark:text-gray-400">
                     <span>{rec.reason}</span>

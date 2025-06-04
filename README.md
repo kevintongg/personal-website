@@ -11,6 +11,7 @@ A modern, comprehensive portfolio website featuring interactive dashboards, weat
 ## ✨ Features
 
 ### 🏠 Portfolio Homepage
+
 - ✨ Modern, responsive design with dark mode
 - 📱 Mobile-first responsive layout
 - 🎯 SEO optimized with smooth scrolling navigation
@@ -19,6 +20,7 @@ A modern, comprehensive portfolio website featuring interactive dashboards, weat
 - 🔗 Social links and downloadable resume
 
 ### 📊 Personal Dashboard
+
 - ⏰ **Live Clock Widget** - Real-time clock with date display
 - 🌤️ **Weather Widget** - Current weather with location detection
 - ✅ **Todo List** - Persistent task management with progress tracking
@@ -27,6 +29,7 @@ A modern, comprehensive portfolio website featuring interactive dashboards, weat
 - 💾 **Local Storage** - All data persists across sessions
 
 ### 🌦️ Weather Dashboard
+
 - 🌍 **Location Search** - Search and save multiple locations
 - 📍 **Current Location** - Automatic geolocation detection
 - 🌡️ **Current Weather** - Temperature, humidity, wind, UV index
@@ -40,6 +43,7 @@ A modern, comprehensive portfolio website featuring interactive dashboards, weat
 ## 🛠️ Tech Stack
 
 ### Frontend
+
 - **React 19** - Latest React with modern features
 - **TypeScript** - Type-safe JavaScript development
 - **Tailwind CSS v4** - Utility-first CSS framework
@@ -47,18 +51,21 @@ A modern, comprehensive portfolio website featuring interactive dashboards, weat
 - **shadcn/ui** - Beautiful and accessible component library
 
 ### APIs & Services
+
 - **OpenWeather API** - Weather data and forecasts
 - **OneCall 3.0 API** - Enhanced weather features (UV index, alerts, extended forecasts)
 - **Geocoding API** - Location search and coordinates
 - **Air Quality API** - Pollution data and health recommendations
 
 ### Development Tools
+
 - **Vite** - Fast build tool and development server
 - **ESLint** - Code linting with React, TypeScript, and accessibility rules
 - **Prettier** - Code formatting with Tailwind CSS class sorting
 - **EditorConfig** - Consistent coding styles across editors
 
 ### Performance & Analytics
+
 - **Vercel Speed Insights** - Performance monitoring
 - **Code Splitting** - Optimized bundle loading
 - **Responsive Images** - Optimized asset delivery
@@ -66,6 +73,7 @@ A modern, comprehensive portfolio website featuring interactive dashboards, weat
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 - Node.js 18+
 - pnpm (recommended) or npm
 
@@ -161,17 +169,20 @@ public/                 # Static assets
 ## 🎨 Design System
 
 ### Color Palette
+
 - **Primary**: Blue gradient (blue-600 to purple-600)
 - **Surface**: White/Gray-950 (light/dark mode)
 - **Text**: Gray-900/Gray-100 (light/dark mode)
 - **Accent Colors**: Blue, Purple, Green, Orange, Red for different widgets
 
 ### Typography
+
 - **Headings**: Font-bold with responsive sizing
 - **Body**: Leading-relaxed for readability
 - **Code**: Monospace with syntax highlighting
 
 ### Components
+
 - **Consistent spacing** using Tailwind's spacing scale
 - **Rounded corners** for modern feel
 - **Hover states** and smooth transitions
@@ -180,24 +191,28 @@ public/                 # Static assets
 ## 🌟 Key Features Explained
 
 ### Smart Weather Caching
+
 - 10-minute cache duration for optimal performance
 - Automatic cache invalidation and refresh
 - Fallback to basic APIs if OneCall 3.0 fails
 - Error handling with user-friendly messages
 
 ### Responsive Design
+
 - Mobile-first approach with progressive enhancement
 - Flexible grid systems for different screen sizes
 - Touch-friendly interface elements
 - Optimized for tablets and desktops
 
 ### Data Persistence
+
 - Local storage for user preferences
 - Saved locations for weather dashboard
 - Todo items and bookmarks persist across sessions
 - Theme preference memory
 
 ### Accessibility
+
 - ARIA labels and semantic HTML
 - Keyboard navigation support
 - Screen reader optimizations
@@ -206,11 +221,13 @@ public/                 # Static assets
 ## 🚀 Deployment
 
 ### Vercel (Recommended)
+
 1. Connect your GitHub repository to Vercel
 2. Add environment variables in Vercel dashboard
 3. Deploy automatically on push
 
 ### Manual Build
+
 ```bash
 pnpm build
 # Upload dist/ folder to your hosting provider

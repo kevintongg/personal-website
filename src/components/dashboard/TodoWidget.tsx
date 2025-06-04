@@ -48,9 +48,7 @@ export function TodoWidget() {
   };
 
   const toggleTodo = (id: string) => {
-    setTodos(todos.map(todo =>
-      todo.id === id ? { ...todo, completed: !todo.completed } : todo
-    ));
+    setTodos(todos.map(todo => (todo.id === id ? { ...todo, completed: !todo.completed } : todo)));
   };
 
   const deleteTodo = (id: string) => {
@@ -77,7 +75,12 @@ export function TodoWidget() {
               stroke="currentColor"
               viewBox="0 0 24 24"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"
+              />
             </svg>
             To-Do List
           </div>
@@ -92,10 +95,10 @@ export function TodoWidget() {
           <input
             type="text"
             value={newTodo}
-            onChange={(e) => setNewTodo(e.target.value)}
+            onChange={e => setNewTodo(e.target.value)}
             onKeyPress={handleKeyPress}
             placeholder="Add a new task..."
-            className="flex-1 px-3 py-2 text-sm border border-gray-300 rounded-md bg-white dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="flex-1 rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:border-transparent focus:ring-2 focus:ring-blue-500 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
           />
           <Button onClick={addTodo} size="sm">
             Add
@@ -109,9 +112,9 @@ export function TodoWidget() {
               <span>Progress</span>
               <span>{Math.round((completedCount / totalCount) * 100)}%</span>
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-2 dark:bg-gray-700">
+            <div className="h-2 w-full rounded-full bg-gray-200 dark:bg-gray-700">
               <div
-                className="bg-green-600 h-2 rounded-full transition-all duration-300 ease-in-out"
+                className="h-2 rounded-full bg-green-600 transition-all duration-300 ease-in-out"
                 style={{ width: `${(completedCount / totalCount) * 100}%` }}
               ></div>
             </div>
@@ -119,39 +122,43 @@ export function TodoWidget() {
         )}
 
         {/* Todo list */}
-        <div className="space-y-2 max-h-60 overflow-y-auto">
+        <div className="max-h-60 space-y-2 overflow-y-auto">
           {todos.length === 0 ? (
-            <div className="text-center text-gray-500 dark:text-gray-400 py-8">
+            <div className="py-8 text-center text-gray-500 dark:text-gray-400">
               <p>No tasks yet. Add one above!</p>
             </div>
           ) : (
-            todos.map((todo) => (
+            todos.map(todo => (
               <div
                 key={todo.id}
-                className={`flex items-center gap-3 p-2 rounded-lg border ${
+                className={`flex items-center gap-3 rounded-lg border p-2 ${
                   todo.completed
-                    ? 'bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700'
-                    : 'bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-600'
+                    ? 'border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800'
+                    : 'border-gray-300 bg-white dark:border-gray-600 dark:bg-gray-900'
                 }`}
               >
                 <button
                   onClick={() => toggleTodo(todo.id)}
-                  className={`flex-shrink-0 w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors ${
+                  className={`flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full border-2 transition-colors ${
                     todo.completed
-                      ? 'bg-green-600 border-green-600 text-white'
-                      : 'border-gray-300 dark:border-gray-600 hover:border-green-500'
+                      ? 'border-green-600 bg-green-600 text-white'
+                      : 'border-gray-300 hover:border-green-500 dark:border-gray-600'
                   }`}
                 >
                   {todo.completed && (
-                    <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    <svg className="h-3 w-3" fill="currentColor" viewBox="0 0 20 20">
+                      <path
+                        fillRule="evenodd"
+                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                        clipRule="evenodd"
+                      />
                     </svg>
                   )}
                 </button>
                 <span
                   className={`flex-1 text-sm ${
                     todo.completed
-                      ? 'line-through text-gray-500 dark:text-gray-400'
+                      ? 'text-gray-500 line-through dark:text-gray-400'
                       : 'text-gray-900 dark:text-gray-100'
                   }`}
                 >
@@ -161,8 +168,13 @@ export function TodoWidget() {
                   onClick={() => deleteTodo(todo.id)}
                   className="flex-shrink-0 text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
                 >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                  <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                    />
                   </svg>
                 </button>
               </div>

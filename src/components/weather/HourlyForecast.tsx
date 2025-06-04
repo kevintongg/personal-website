@@ -42,36 +42,38 @@ export default function HourlyForecast({
       <CardContent>
         {/* Desktop/Tablet view */}
         <div className="hidden sm:block">
-          <div className="grid grid-cols-8 lg:grid-cols-12 gap-3">
+          <div className="grid grid-cols-8 gap-3 lg:grid-cols-12">
             {hourlyForecast.map((hour, index) => (
               <div
                 key={index}
-                className={`flex flex-col items-center p-3 rounded-lg transition-colors ${
+                className={`flex flex-col items-center rounded-lg p-3 transition-colors ${
                   isNow(hour.time)
-                    ? 'bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800'
+                    ? 'border border-blue-200 bg-blue-50 dark:border-blue-800 dark:bg-blue-900/20'
                     : 'hover:bg-gray-50 dark:hover:bg-gray-800/50'
                 }`}
               >
-                <div className={`text-xs font-medium mb-2 ${
-                  isNow(hour.time)
-                    ? 'text-blue-700 dark:text-blue-300'
-                    : 'text-gray-600 dark:text-gray-400'
-                }`}>
+                <div
+                  className={`mb-2 text-xs font-medium ${
+                    isNow(hour.time)
+                      ? 'text-blue-700 dark:text-blue-300'
+                      : 'text-gray-600 dark:text-gray-400'
+                  }`}
+                >
                   {isNow(hour.time) ? 'Now' : formatHourlyTime(hour.time)}
                 </div>
-                <div className="text-2xl mb-2" title={hour.description}>
+                <div className="mb-2 text-2xl" title={hour.description}>
                   {getWeatherIcon(hour.icon, hour.description)}
                 </div>
-                <div className="text-sm font-semibold mb-1 text-gray-900 dark:text-gray-100">
+                <div className="mb-1 text-sm font-semibold text-gray-900 dark:text-gray-100">
                   {convertTemperature(hour.temperature)}°
                 </div>
                 {hour.precipitation > 0 && (
-                  <div className="text-xs text-blue-600 dark:text-blue-400 font-medium">
+                  <div className="text-xs font-medium text-blue-600 dark:text-blue-400">
                     {hour.precipitation}%
                   </div>
                 )}
                 {hour.uvIndex > 0 && (
-                  <div className="text-xs text-orange-600 dark:text-orange-400 mt-1">
+                  <div className="mt-1 text-xs text-orange-600 dark:text-orange-400">
                     UV {hour.uvIndex}
                   </div>
                 )}
@@ -86,24 +88,26 @@ export default function HourlyForecast({
             {hourlyForecast.slice(0, 12).map((hour, index) => (
               <div
                 key={index}
-                className={`flex items-center justify-between p-3 rounded-lg ${
+                className={`flex items-center justify-between rounded-lg p-3 ${
                   isNow(hour.time)
-                    ? 'bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800'
+                    ? 'border border-blue-200 bg-blue-50 dark:border-blue-800 dark:bg-blue-900/20'
                     : 'bg-gray-50 dark:bg-gray-800/50'
                 }`}
               >
-                <div className="flex items-center gap-3 flex-1">
-                  <div className={`text-sm font-medium min-w-[60px] ${
-                    isNow(hour.time)
-                      ? 'text-blue-700 dark:text-blue-300'
-                      : 'text-gray-600 dark:text-gray-400'
-                  }`}>
+                <div className="flex flex-1 items-center gap-3">
+                  <div
+                    className={`min-w-[60px] text-sm font-medium ${
+                      isNow(hour.time)
+                        ? 'text-blue-700 dark:text-blue-300'
+                        : 'text-gray-600 dark:text-gray-400'
+                    }`}
+                  >
                     {isNow(hour.time) ? 'Now' : formatHourlyTime(hour.time)}
                   </div>
                   <div className="text-xl" title={hour.description}>
                     {getWeatherIcon(hour.icon, hour.description)}
                   </div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400 capitalize flex-1">
+                  <div className="flex-1 text-sm text-gray-600 capitalize dark:text-gray-400">
                     {hour.description}
                   </div>
                 </div>
@@ -112,12 +116,12 @@ export default function HourlyForecast({
                     {convertTemperature(hour.temperature)}°
                   </div>
                   {hour.precipitation > 0 && (
-                    <div className="text-sm text-blue-600 dark:text-blue-400 min-w-[35px] text-right">
+                    <div className="min-w-[35px] text-right text-sm text-blue-600 dark:text-blue-400">
                       {hour.precipitation}%
                     </div>
                   )}
                   {hour.uvIndex > 0 && (
-                    <div className="text-sm text-orange-600 dark:text-orange-400 min-w-[35px] text-right">
+                    <div className="min-w-[35px] text-right text-sm text-orange-600 dark:text-orange-400">
                       UV {hour.uvIndex}
                     </div>
                   )}

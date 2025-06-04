@@ -260,7 +260,13 @@ export type WindUnit = 'kmh' | 'mph' | 'ms' | 'knots';
 export type PressureUnit = 'hpa' | 'inhg' | 'mmhg';
 export type PrecipitationUnit = 'mm' | 'inches';
 export type TimeRange = '24h' | '7d' | '30d' | '1y';
-export type WeatherMetric = 'temperature' | 'precipitation' | 'pressure' | 'humidity' | 'wind' | 'uv';
+export type WeatherMetric =
+  | 'temperature'
+  | 'precipitation'
+  | 'pressure'
+  | 'humidity'
+  | 'wind'
+  | 'uv';
 
 // API response types
 export interface WeatherAPIResponse {
