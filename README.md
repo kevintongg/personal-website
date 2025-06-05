@@ -4,19 +4,11 @@ A modern, flexible personal website featuring interactive dashboards, weather ap
 
 ## 🚀 Features Overview
 
-<<<<<<< HEAD
 - **Personal Home**: Clean welcome page with live clock and navigation cards
 - **Professional Portfolio**: Complete portfolio showcase with projects and skills
 - **Personal Dashboard**: Interactive widgets for productivity and daily use
 - **Weather Dashboard**: Real-time weather data with forecasts and alerts
 - **EDM Events**: Location-based electronic music event discovery
-=======
-- **Personal Home**: [Welcome](.)
-- **Professional Portfolio**: [View Portfolio](/portfolio)
-- **Personal Dashboard**: [View Dashboard](/dashboard)
-- **Weather Dashboard**: [View Weather App](/weather)
-- **EDM Events**: [Discover Events](/events)
->>>>>>> origin/main
 
 ## ✨ Features
 
