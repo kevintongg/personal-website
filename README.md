@@ -4,7 +4,7 @@ A modern, flexible personal website featuring interactive dashboards, weather ap
 
 ## 🚀 Live Demo
 
-- **Personal Home**: [Welcome](.}
+- **Personal Home**: [Welcome](.)
 - **Professional Portfolio**: [View Portfolio](/portfolio)
 - **Personal Dashboard**: [View Dashboard](/dashboard)
 - **Weather Dashboard**: [View Weather App](/weather)
