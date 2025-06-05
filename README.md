@@ -2,13 +2,13 @@
 
 A modern, flexible personal website featuring interactive dashboards, weather applications, EDM event discovery, and professional portfolio showcase. Built with React, TypeScript, and Tailwind CSS v4.
 
-## 🚀 Live Demo
+## 🚀 Features Overview
 
-- **Personal Home**: [Welcome](.)
-- **Professional Portfolio**: [View Portfolio](/portfolio)
-- **Personal Dashboard**: [View Dashboard](/dashboard)
-- **Weather Dashboard**: [View Weather App](/weather)
-- **EDM Events**: [Discover Events](/events)
+- **Personal Home**: Clean welcome page with live clock and navigation cards
+- **Professional Portfolio**: Complete portfolio showcase with projects and skills
+- **Personal Dashboard**: Interactive widgets for productivity and daily use
+- **Weather Dashboard**: Real-time weather data with forecasts and alerts
+- **EDM Events**: Location-based electronic music event discovery
 
 ## ✨ Features
 
