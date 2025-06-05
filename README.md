@@ -1,23 +1,34 @@
-# Kevin Tong - Portfolio
+# Kevin Tong - Personal Website
 
-A modern, comprehensive portfolio website featuring interactive dashboards, weather applications, and beautiful responsive design. Built with React, TypeScript, and Tailwind CSS v4.
+A modern, flexible personal website featuring interactive dashboards, weather applications, EDM event discovery, and professional portfolio showcase. Built with React, TypeScript, and Tailwind CSS v4.
 
 ## 🚀 Live Demo
 
-- **Portfolio Homepage**: [View Portfolio](/)
+- **Personal Home**: [Welcome](/}
+- **Professional Portfolio**: [View Portfolio](/portfolio)
 - **Personal Dashboard**: [View Dashboard](/dashboard)
 - **Weather Dashboard**: [View Weather App](/weather)
+- **EDM Events**: [Discover Events](/events)
 
 ## ✨ Features
 
-### 🏠 Portfolio Homepage
+### 🏠 Personal Home
 
-- ✨ Modern, responsive design with dark mode
-- 📱 Mobile-first responsive layout
-- 🎯 SEO optimized with smooth scrolling navigation
-- 💼 Project showcase with live previews
-- 📧 Contact form with validation
-- 🔗 Social links and downloadable resume
+- 🎯 **Simple Welcome Page** - Clean, personal introduction
+- ⏰ **Live Clock** - Real-time display with 24-hour format
+- 🧭 **Quick Navigation** - Easy access to main sections
+- 🌙 **Dark Mode** - System-aware theme switching
+- 📱 **Mobile-responsive** - Optimized for all devices
+
+### 💼 Professional Portfolio
+
+- ✨ **Modern Design** - Professional presentation with dark mode
+- 📱 **Mobile-first** - Fully responsive layout
+- 🎯 **SEO Optimized** - Smooth scrolling navigation
+- 💼 **Project Showcase** - Interactive live previews
+- 📊 **Skills Section** - Animated progress bars
+- 📧 **Contact Form** - Integrated contact system
+- 🔗 **Social Links** - GitHub and professional profiles
 
 ### 📊 Personal Dashboard
 
@@ -40,6 +51,16 @@ A modern, comprehensive portfolio website featuring interactive dashboards, weat
 - 🌬️ **Air Quality** - Real-time air pollution data
 - 🔄 **Auto-refresh** - Smart caching with 10-minute updates
 
+### 🎵 EDM Events Discovery
+
+- 🌍 **Location-based Search** - Find events by city or current location
+- 🎪 **Real Event Data** - Powered by Edmtrain API
+- 🎯 **Genre Filtering** - Filter by music genres with event counts
+- 📅 **Event Details** - Venue, date, time, and artist information
+- 🎫 **Ticket Links** - Direct links to purchase tickets
+- 🔄 **Smart Caching** - Optimized API usage with refresh capability
+- 📱 **Responsive Design** - Beautiful cards layout
+
 ## 🛠️ Tech Stack
 
 ### Frontend
@@ -56,6 +77,7 @@ A modern, comprehensive portfolio website featuring interactive dashboards, weat
 - **OneCall 3.0 API** - Enhanced weather features (UV index, alerts, extended forecasts)
 - **Geocoding API** - Location search and coordinates
 - **Air Quality API** - Pollution data and health recommendations
+- **Edmtrain API** - Electronic dance music event discovery
 
 ### Development Tools
 
@@ -82,7 +104,7 @@ A modern, comprehensive portfolio website featuring interactive dashboards, weat
 ```bash
 # Clone the repository
 git clone https://github.com/kevintongg/portfolio.git
-cd portfolio
+cd personal-website
 
 # Install dependencies
 pnpm install
@@ -90,8 +112,9 @@ pnpm install
 # Create environment file
 cp .env.example .env.local
 
-# Add your OpenWeather API key to .env.local
-VITE_OPENWEATHER_API_KEY=your_api_key_here
+# Add your API keys to .env.local
+VITE_OPENWEATHER_API_KEY=your_openweather_api_key
+VITE_EDMTRAIN_API_KEY=your_edmtrain_api_key
 
 # Start development server
 pnpm dev
@@ -120,14 +143,21 @@ Create a `.env.local` file with:
 
 ```env
 VITE_OPENWEATHER_API_KEY=your_openweather_api_key
+VITE_EDMTRAIN_API_KEY=your_edmtrain_api_key
 ```
 
 ### API Keys Required
 
 1. **OpenWeather API Key** - Get free key at [openweathermap.org](https://openweathermap.org/api)
+
    - Used for weather data, forecasts, and air quality
    - Free tier: 1,000 calls/day
    - OneCall 3.0: Enhanced features with subscription
+
+2. **Edmtrain API Key** - Get free key at [edmtrain.com](https://edmtrain.com/api)
+   - Used for electronic dance music event discovery
+   - Free tier: 100 calls/day
+   - Location-based event search
 
 ## 📁 Project Structure
 
@@ -150,20 +180,27 @@ src/
 │   │   ├── WeatherDetailsCard.tsx
 │   │   ├── WeatherRecommendations.tsx
 │   │   └── WindSunCard.tsx
-│   ├── ui/               # Reusable UI components
-│   └── Portfolio.tsx     # Main portfolio component
-├── contexts/             # React contexts
+│   ├── edm-events/        # EDM events components
+│   │   └── LocationSelector.tsx
+│   ├── ui/                # Reusable UI components
+│   ├── Home.tsx           # Personal home page
+│   └── Portfolio.tsx      # Professional portfolio
+├── contexts/              # React contexts
 │   └── DarkModeContext.tsx
-├── lib/                  # Utilities and services
-│   └── weather/
-│       ├── weatherService.ts
+├── lib/                   # Utilities and services
+│   ├── weather/
+│   │   ├── weatherService.ts
+│   │   └── types.ts
+│   └── edmtrain/          # Edmtrain API integration
+│       ├── edmtrainService.ts
 │       └── types.ts
-├── pages/               # Route pages
+├── pages/                 # Route pages
 │   ├── Dashboard.tsx
-│   └── Weather.tsx
-└── App.tsx             # Application entry point
+│   ├── Weather.tsx
+│   └── EdmEvents.tsx
+└── App.tsx               # Application entry point
 
-public/                 # Static assets
+public/                   # Static assets
 ```
 
 ## 🎨 Design System
@@ -187,43 +224,63 @@ public/                 # Static assets
 - **Rounded corners** for modern feel
 - **Hover states** and smooth transitions
 - **Dark mode** support throughout
+- **Centered titles** with left-aligned descriptions for cards
 
 ## 🌟 Key Features Explained
 
-### Smart Weather Caching
+### Flexible Website Architecture
 
-- 10-minute cache duration for optimal performance
-- Automatic cache invalidation and refresh
-- Fallback to basic APIs if OneCall 3.0 fails
-- Error handling with user-friendly messages
+- **Personal Home** (`/`) - Casual, welcoming landing page
+- **Professional Portfolio** (`/portfolio`) - Formal showcase for employers
+- **Functional Apps** - Dashboard, Weather, and Events as separate experiences
+- **Easy Navigation** - Both navigation bar and card-based quick access
+
+### Smart Caching Systems
+
+- **Weather**: 10-minute cache duration for optimal performance
+- **EDM Events**: Location-based caching with manual refresh options
+- **Automatic cache invalidation** and refresh
+- **Fallback strategies** for API failures
+
+### Real-time Features
+
+- **Live Clock** - Updates every second with 24-hour format
+- **Dynamic Time Display** - Shows current date and time on home page
+- **Auto-refresh Weather** - Background updates every 10 minutes
+- **Event Data Sync** - Real-time event information from Edmtrain
+
+### Accessibility & UX
+
+- **ARIA labels** and semantic HTML elements
+- **Keyboard navigation** support throughout
+- **Screen reader** optimizations
+- **Focus indicators** for interactive elements
+- **Loading states** with centered spinners
+- **Error handling** with user-friendly messages
 
 ### Responsive Design
 
-- Mobile-first approach with progressive enhancement
-- Flexible grid systems for different screen sizes
-- Touch-friendly interface elements
-- Optimized for tablets and desktops
+- **Mobile-first** approach with progressive enhancement
+- **Flexible grid systems** for different screen sizes
+- **Touch-friendly** interface elements
+- **Optimized layouts** for tablets and desktops
 
 ### Data Persistence
 
-- Local storage for user preferences
-- Saved locations for weather dashboard
-- Todo items and bookmarks persist across sessions
-- Theme preference memory
-
-### Accessibility
-
-- ARIA labels and semantic HTML
-- Keyboard navigation support
-- Screen reader optimizations
-- High contrast mode compatibility
+- **Local storage** for user preferences
+- **Saved locations** for weather dashboard
+- **Todo items and bookmarks** persist across sessions
+- **Theme preference** memory
+- **Event cache** for improved performance
 
 ## 🚀 Deployment
 
 ### Vercel (Recommended)
 
 1. Connect your GitHub repository to Vercel
-2. Add environment variables in Vercel dashboard
+2. Add environment variables in Vercel dashboard:
+   - `VITE_OPENWEATHER_API_KEY`
+   - `VITE_EDMTRAIN_API_KEY`
 3. Deploy automatically on push
 
 ### Manual Build
@@ -233,9 +290,19 @@ pnpm build
 # Upload dist/ folder to your hosting provider
 ```
 
+## 📱 Navigation Structure
+
+```
+/ (Home)                    # Personal welcome page
+├── /portfolio             # Professional portfolio showcase
+├── /dashboard             # Personal productivity dashboard
+├── /weather              # Weather application
+└── /events               # EDM events discovery
+```
+
 ## 🤝 Contributing
 
-While this is a personal portfolio, suggestions and improvements are welcome!
+While this is a personal website, suggestions and improvements are welcome!
 
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/amazing-feature`)
@@ -245,15 +312,16 @@ While this is a personal portfolio, suggestions and improvements are welcome!
 
 ## 📝 License
 
-MIT License - feel free to use this as a template for your own portfolio!
+MIT License - feel free to use this as a template for your own personal website!
 
 ## 🙏 Acknowledgments
 
 - [OpenWeather](https://openweathermap.org/) for weather data APIs
+- [Edmtrain](https://edmtrain.com/) for electronic dance music event data
 - [shadcn/ui](https://ui.shadcn.com/) for beautiful components
 - [Tailwind CSS](https://tailwindcss.com/) for styling framework
 - [Vercel](https://vercel.com/) for hosting and analytics
 
 ---
 
-Built with ❤️ by Kevin Tong | [Portfolio](/) | [Dashboard](/src/pages/Dashboard.tsx) | [Weather](/src/pages/Weather.tsx)
+Built with ❤️ by Kevin Tong | [Home](/) | [Portfolio](/portfolio) | [Dashboard](/dashboard) | [Weather](/weather) | [Events](/events)

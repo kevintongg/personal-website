@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { LocationSelector } from '../components/edm-events/LocationSelector';
 import { Button } from '../components/ui/button';
 import { DarkModeToggle } from '../components/ui/dark-mode-toggle';
-import { LocationSelector } from '../components/edm-events/LocationSelector';
 import { edmtrainService } from '../lib/edmtrain/edmtrainService';
 import type { EdmtrainEvent, EdmtrainLocation } from '../lib/edmtrain/types';
 
@@ -9,7 +9,9 @@ export function EdmEvents() {
   const [events, setEvents] = useState<EdmtrainEvent[]>([]);
   const [categorizedEvents, setCategorizedEvents] = useState<Record<string, EdmtrainEvent[]>>({});
   const [selectedGenre, setSelectedGenre] = useState<string>('All');
-  const [selectedLocation, setSelectedLocation] = useState<EdmtrainLocation | 'current' | null>(null);
+  const [selectedLocation, setSelectedLocation] = useState<EdmtrainLocation | 'current' | null>(
+    null
+  );
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -31,7 +33,10 @@ export function EdmEvents() {
       if (selectedLocation === 'current') {
         eventsData = await edmtrainService.getCurrentLocationEvents();
       } else {
-        eventsData = await edmtrainService.getEventsByCity(selectedLocation.city, selectedLocation.state);
+        eventsData = await edmtrainService.getEventsByCity(
+          selectedLocation.city,
+          selectedLocation.state
+        );
       }
 
       setEvents(eventsData);
@@ -42,7 +47,6 @@ export function EdmEvents() {
 
       // Reset genre filter to 'All' when new location is selected
       setSelectedGenre('All');
-
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to fetch events';
       setError(errorMessage);
@@ -74,7 +78,7 @@ export function EdmEvents() {
       weekday: 'short',
       month: 'short',
       day: 'numeric',
-      year: 'numeric'
+      year: 'numeric',
     });
   };
 
@@ -86,7 +90,7 @@ export function EdmEvents() {
       return time.toLocaleTimeString('en-US', {
         hour: 'numeric',
         minute: '2-digit',
-        hour12: true
+        hour12: true,
       });
     } catch {
       return timeString;
@@ -119,9 +123,7 @@ export function EdmEvents() {
   };
 
   const getGenres = () => {
-    return Object.keys(categorizedEvents).filter(genre =>
-      categorizedEvents[genre].length > 0
-    );
+    return Object.keys(categorizedEvents).filter(genre => categorizedEvents[genre].length > 0);
   };
 
   const getFilteredEvents = () => {
@@ -157,9 +159,7 @@ export function EdmEvents() {
             </Button>
           </div>
           <div className="flex items-center justify-center">
-            <span className="text-xl font-bold text-gray-900 dark:text-gray-100">
-              EDM Events
-            </span>
+            <span className="text-xl font-bold text-gray-900 dark:text-gray-100">EDM Events</span>
           </div>
           <div className="flex flex-1 items-center justify-end space-x-2">
             {selectedLocation && (
@@ -201,12 +201,11 @@ export function EdmEvents() {
         {loading && (
           <div className="flex items-center justify-center py-12">
             <div className="text-center">
-              <div className="mb-4 h-12 w-12 animate-spin rounded-full border-4 border-blue-500 border-t-transparent mx-auto"></div>
+              <div className="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-4 border-blue-500 border-t-transparent"></div>
               <p className="text-gray-600 dark:text-gray-400">
                 {selectedLocation === 'current'
                   ? 'Getting your location and loading events...'
-                  : 'Loading events...'
-                }
+                  : 'Loading events...'}
               </p>
             </div>
           </div>
@@ -216,24 +215,19 @@ export function EdmEvents() {
         {error && !loading && (
           <div className="py-12 text-center">
             <div className="mx-auto mb-4 h-24 w-24 rounded-full bg-red-100 p-6 dark:bg-red-900/30">
-              <div className="h-full w-full rounded-full bg-red-300 dark:bg-red-600 flex items-center justify-center">
-                <span className="text-red-600 dark:text-red-300 text-2xl">⚠️</span>
+              <div className="flex h-full w-full items-center justify-center rounded-full bg-red-300 dark:bg-red-600">
+                <span className="text-2xl text-red-600 dark:text-red-300">⚠️</span>
               </div>
             </div>
-            <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">
+            <h3 className="mb-2 text-lg font-medium text-gray-900 dark:text-gray-100">
               Oops! Something went wrong
             </h3>
-            <p className="text-gray-600 dark:text-gray-400 mb-4 max-w-md mx-auto">
-              {error}
-            </p>
+            <p className="mx-auto mb-4 max-w-md text-gray-600 dark:text-gray-400">{error}</p>
             <div className="space-x-2">
               <Button onClick={handleRefresh} disabled={loading}>
                 Try Again
               </Button>
-              <Button
-                variant="outline"
-                onClick={() => setSelectedLocation(null)}
-              >
+              <Button variant="outline" onClick={() => setSelectedLocation(null)}>
                 Change Location
               </Button>
             </div>
@@ -244,11 +238,11 @@ export function EdmEvents() {
         {!selectedLocation && !loading && !error && (
           <div className="py-12 text-center">
             <div className="mx-auto mb-4 h-24 w-24 rounded-full bg-blue-100 p-6 dark:bg-blue-900/30">
-              <div className="h-full w-full rounded-full bg-blue-300 dark:bg-blue-600 flex items-center justify-center">
-                <span className="text-blue-600 dark:text-blue-300 text-2xl">📍</span>
+              <div className="flex h-full w-full items-center justify-center rounded-full bg-blue-300 dark:bg-blue-600">
+                <span className="text-2xl text-blue-600 dark:text-blue-300">📍</span>
               </div>
             </div>
-            <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">
+            <h3 className="mb-2 text-lg font-medium text-gray-900 dark:text-gray-100">
               Select a location to get started
             </h3>
             <p className="text-gray-600 dark:text-gray-400">
@@ -303,12 +297,10 @@ export function EdmEvents() {
                           )}
                         </div>
                         <div>
-                          <h3 className="text-xl font-bold leading-tight mb-1">
+                          <h3 className="mb-1 text-xl leading-tight font-bold">
                             {getEventDisplayName(event)}
                           </h3>
-                          <p className="text-white/90 text-sm">
-                            {getEventArtists(event)}
-                          </p>
+                          <p className="text-sm text-white/90">{getEventArtists(event)}</p>
                         </div>
                       </div>
                     </div>
@@ -339,16 +331,12 @@ export function EdmEvents() {
                           rel="noopener noreferrer"
                           className="flex-1"
                         >
-                          <button className="w-full rounded-lg bg-blue-500 px-4 py-2 text-white transition-colors hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
+                          <button className="w-full rounded-lg bg-blue-500 px-4 py-2 text-white transition-colors hover:bg-blue-600 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none dark:focus:ring-offset-gray-800">
                             Get Tickets
                           </button>
                         </a>
 
-                        <a
-                          href={event.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
+                        <a href={event.link} target="_blank" rel="noopener noreferrer">
                           <button className="rounded-lg border border-gray-300 px-4 py-2 text-gray-700 transition-colors hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700">
                             Details
                           </button>
@@ -362,31 +350,25 @@ export function EdmEvents() {
               /* No Events Message */
               <div className="py-12 text-center">
                 <div className="mx-auto mb-4 h-24 w-24 rounded-full bg-gray-100 p-6 dark:bg-gray-800">
-                  <div className="h-full w-full rounded-full bg-gray-300 dark:bg-gray-600 flex items-center justify-center">
-                    <span className="text-gray-600 dark:text-gray-400 text-2xl">🎵</span>
+                  <div className="flex h-full w-full items-center justify-center rounded-full bg-gray-300 dark:bg-gray-600">
+                    <span className="text-2xl text-gray-600 dark:text-gray-400">🎵</span>
                   </div>
                 </div>
-                <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">
+                <h3 className="mb-2 text-lg font-medium text-gray-900 dark:text-gray-100">
                   No events found
                 </h3>
-                <p className="text-gray-600 dark:text-gray-400 mb-4">
+                <p className="mb-4 text-gray-600 dark:text-gray-400">
                   {selectedGenre === 'All'
                     ? `No upcoming EDM events found for ${selectedLocation === 'current' ? 'your location' : 'this location'}.`
-                    : `No ${selectedGenre} events found. Try selecting a different genre.`
-                  }
+                    : `No ${selectedGenre} events found. Try selecting a different genre.`}
                 </p>
                 <div className="space-x-2">
                   {selectedGenre !== 'All' && (
-                    <Button
-                      variant="outline"
-                      onClick={() => setSelectedGenre('All')}
-                    >
+                    <Button variant="outline" onClick={() => setSelectedGenre('All')}>
                       Show All Events
                     </Button>
                   )}
-                  <Button onClick={handleRefresh}>
-                    Refresh Events
-                  </Button>
+                  <Button onClick={handleRefresh}>Refresh Events</Button>
                 </div>
               </div>
             )}
