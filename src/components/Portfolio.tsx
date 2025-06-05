@@ -7,6 +7,7 @@ import { MobileNav } from './ui/mobile-nav';
 import {
   DashboardPreview,
   ECommercePreview,
+  EdmEventsPreview,
   TaskManagementPreview,
   WeatherDashboardPreview,
 } from './ui/project-previews';
@@ -218,9 +219,13 @@ export function Portfolio() {
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {/* Personal Dashboard Project */}
             <Card className="group overflow-hidden transition-shadow hover:shadow-lg dark:hover:shadow-gray-800/25">
-              <div className="cursor-pointer" onClick={() => navigate('/dashboard')}>
+              <button
+                className="w-full cursor-pointer rounded focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none"
+                onClick={() => navigate('/dashboard')}
+                aria-label="View Dashboard project"
+              >
                 <DashboardPreview />
-              </div>
+              </button>
               <CardHeader>
                 <CardTitle>Personal Dashboard</CardTitle>
                 <CardDescription>
@@ -259,9 +264,13 @@ export function Portfolio() {
 
             {/* Weather Dashboard */}
             <Card className="group overflow-hidden transition-shadow hover:shadow-lg dark:hover:shadow-gray-800/25">
-              <div className="cursor-pointer" onClick={() => navigate('/weather')}>
+              <button
+                className="w-full cursor-pointer rounded focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none"
+                onClick={() => navigate('/weather')}
+                aria-label="View Weather Dashboard project"
+              >
                 <WeatherDashboardPreview />
-              </div>
+              </button>
               <CardHeader>
                 <CardTitle>Weather Dashboard</CardTitle>
                 <CardDescription>
@@ -293,6 +302,51 @@ export function Portfolio() {
                   </Button>
                   <Button size="sm" asChild>
                     <Link to="/weather">Live Demo</Link>
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* EDM Events Finder */}
+            <Card className="group overflow-hidden transition-shadow hover:shadow-lg dark:hover:shadow-gray-800/25">
+              <button
+                className="w-full cursor-pointer rounded focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none"
+                onClick={() => navigate('/events')}
+                aria-label="View EDM Events Finder project"
+              >
+                <EdmEventsPreview />
+              </button>
+              <CardHeader>
+                <CardTitle>EDM Events Finder</CardTitle>
+                <CardDescription>
+                  Discover upcoming electronic dance music events in your area with genre filtering,
+                  event details, and ticket information.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="mb-4 flex flex-wrap gap-2">
+                  <span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">
+                    React
+                  </span>
+                  <span className="rounded-full bg-indigo-100 px-3 py-1 text-xs font-medium text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300">
+                    TypeScript
+                  </span>
+                  <span className="rounded-full bg-purple-100 px-3 py-1 text-xs font-medium text-purple-700 dark:bg-purple-900/30 dark:text-purple-300">
+                    Music Events
+                  </span>
+                </div>
+                <div className="flex gap-2">
+                  <Button variant="outline" size="sm" asChild>
+                    <a
+                      href="https://github.com/kevintongg/portfolio/blob/main/src/pages/EdmEvents.tsx"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      View Code
+                    </a>
+                  </Button>
+                  <Button size="sm" asChild>
+                    <Link to="/events">Live Demo</Link>
                   </Button>
                 </div>
               </CardContent>

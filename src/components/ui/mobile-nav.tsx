@@ -54,34 +54,13 @@ export function MobileNav() {
               </Button>
             </div>
             <nav className="space-y-4 p-4">
-              <a
-                href="#about"
+              <Link
+                to="/portfolio"
                 className="block text-lg text-gray-700 transition-colors hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
                 onClick={() => setIsOpen(false)}
               >
-                About
-              </a>
-              <a
-                href="#skills"
-                className="block text-lg text-gray-700 transition-colors hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
-                onClick={() => setIsOpen(false)}
-              >
-                Skills
-              </a>
-              <a
-                href="#projects"
-                className="block text-lg text-gray-700 transition-colors hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
-                onClick={() => setIsOpen(false)}
-              >
-                Projects
-              </a>
-              <a
-                href="#contact"
-                className="block text-lg text-gray-700 transition-colors hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
-                onClick={() => setIsOpen(false)}
-              >
-                Contact
-              </a>
+                Portfolio
+              </Link>
               <Link
                 to="/dashboard"
                 className="block text-lg text-gray-700 transition-colors hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
@@ -89,6 +68,27 @@ export function MobileNav() {
               >
                 Dashboard
               </Link>
+              <Link
+                to="/weather"
+                className="block text-lg text-gray-700 transition-colors hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
+                onClick={() => setIsOpen(false)}
+              >
+                Weather
+              </Link>
+              <Link
+                to="/events"
+                className="block text-lg text-gray-700 transition-colors hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
+                onClick={() => setIsOpen(false)}
+              >
+                Events
+              </Link>
+              <a
+                href="#projects"
+                className="block text-lg text-gray-700 transition-colors hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
+                onClick={() => setIsOpen(false)}
+              >
+                Projects
+              </a>
               <div className="border-t border-gray-200 pt-4 dark:border-gray-700">
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-gray-600 dark:text-gray-400">Theme</span>

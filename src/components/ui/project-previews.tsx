@@ -149,7 +149,7 @@ export function TaskManagementPreview() {
             <div className="space-y-1">
               {tasks
                 .filter(t => !t.completed)
-                .map((task, index) => (
+                .map((task, _index) => (
                   <div
                     key={task.id}
                     className="flex h-3 items-center rounded border-l-2 border-red-400 bg-red-100 px-1 dark:bg-red-950/50"
@@ -172,7 +172,7 @@ export function TaskManagementPreview() {
             <div className="space-y-1">
               {tasks
                 .filter(t => t.completed)
-                .map((task, index) => (
+                .map((task, _index) => (
                   <div
                     key={task.id}
                     className="flex h-3 items-center rounded border-l-2 border-green-400 bg-green-100 px-1 dark:bg-green-950/50"
@@ -236,6 +236,82 @@ export function WeatherDashboardPreview() {
                 ></div>
               ))}
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// EDM Events Preview Component
+export function EdmEventsPreview() {
+  const [activeGenre, setActiveGenre] = useState(0);
+  const genres = ['All', 'Techno', 'House', 'Dubstep', 'Trance'];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveGenre(prev => (prev + 1) % genres.length);
+    }, 2000);
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <div className="h-48 w-full overflow-hidden bg-gradient-to-br from-purple-500 via-blue-500 to-cyan-500 p-3">
+      <div className="h-full w-full rounded-lg bg-white p-2 shadow-sm dark:bg-gray-950">
+        {/* Mini Header */}
+        <div className="mb-2 flex items-center justify-between border-b pb-1 dark:border-gray-800">
+          <div className="h-2 w-16 rounded bg-purple-500"></div>
+          <div className="text-xs">🎵</div>
+        </div>
+
+        {/* Genre Filter Preview */}
+        <div className="mb-2 flex gap-1">
+          {genres.slice(0, 4).map((genre, index) => (
+            <div
+              key={genre}
+              className={`rounded-full px-2 py-0.5 text-[8px] transition-colors ${
+                index === activeGenre
+                  ? 'bg-blue-500 text-white'
+                  : 'bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-400'
+              }`}
+            >
+              {genre}
+            </div>
+          ))}
+        </div>
+
+        {/* Events Grid Preview */}
+        <div className="grid h-full grid-cols-2 gap-1 pb-4">
+          {/* Event Card 1 */}
+          <div className="rounded bg-gradient-to-br from-purple-400 to-blue-400 p-1">
+            <div className="mb-1 rounded bg-white/20 px-1 py-0.5 text-[6px] text-white">Techno</div>
+            <div className="text-[8px] font-bold text-white">Underground Night</div>
+            <div className="text-[6px] text-white/80">Charlotte de Witte</div>
+            <div className="mt-1 text-[6px] text-white/60">📍 Output Brooklyn</div>
+          </div>
+
+          {/* Event Card 2 */}
+          <div className="rounded bg-gradient-to-br from-cyan-400 to-blue-400 p-1">
+            <div className="mb-1 rounded bg-white/20 px-1 py-0.5 text-[6px] text-white">House</div>
+            <div className="text-[8px] font-bold text-white">Deep Vibes</div>
+            <div className="text-[6px] text-white/80">Disclosure</div>
+            <div className="mt-1 text-[6px] text-white/60">📍 Webster Hall</div>
+          </div>
+
+          {/* Event Card 3 */}
+          <div className="rounded bg-gradient-to-br from-pink-400 to-purple-400 p-1">
+            <div className="mb-1 rounded bg-white/20 px-1 py-0.5 text-[6px] text-white">Trance</div>
+            <div className="text-[8px] font-bold text-white">Paradise</div>
+            <div className="text-[6px] text-white/80">Above & Beyond</div>
+            <div className="mt-1 text-[6px] text-white/60">📍 Brooklyn Mirage</div>
+          </div>
+
+          {/* Event Card 4 */}
+          <div className="rounded bg-gradient-to-br from-orange-400 to-red-400 p-1">
+            <div className="mb-1 rounded bg-white/20 px-1 py-0.5 text-[6px] text-white">Bass</div>
+            <div className="text-[8px] font-bold text-white">Future Nights</div>
+            <div className="text-[6px] text-white/80">Illenium</div>
+            <div className="mt-1 text-[6px] text-white/60">📍 Terminal 5</div>
           </div>
         </div>
       </div>
